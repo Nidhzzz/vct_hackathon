@@ -1,17 +1,17 @@
-# import json
 import csv
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By  # Make sure to import By
+from selenium.webdriver.common.by import By
 import boto3
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from io import StringIO
+import os
 
 # AWS Credentials (replace with your actual credentials)
-aws_access_key_id = 'AKIAS2VS4CX5YIXSSAWX'
-aws_secret_access_key = 'PunPGF7I+cw9P4MMayD0fguB59XGjE1xhqxjn996'
-aws_region = 'us-east-1'  # e.g., 'us-east-1'
+aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
+aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+aws_region = 'us-east-1'
 
 # Create an S3 client with embedded credentials
 s3_client = boto3.client(
@@ -46,11 +46,11 @@ def scrape_and_store():
 
     # Extract headers
     headers = []
-    header_row = table.find_element(By.TAG_NAME, 'thead')  # Use 'thead' if available; otherwise, use 'tr'
+    header_row = table.find_element(By.TAG_NAME, 'thead')
     header_cells = header_row.find_elements(By.TAG_NAME, 'th')
     headers = [header.text for header in header_cells]
     
-    print(f"Headers: {headers}")  # Debug: print headers
+    print(f"Headers: {headers}")
 
     # Extract data rows
     rows = table.find_elements(By.TAG_NAME, 'tr')
@@ -60,13 +60,33 @@ def scrape_and_store():
     # Loop through each row and extract cell data
     for row in rows[1:]:  # Skip the first row if it is the header
         cells = row.find_elements(By.TAG_NAME, 'td')
-        row_data = [cell.text for cell in cells]
         
-        # Store row data if it has content (i.e., not an empty row)
+        row_data = []
+        for i, cell in enumerate(cells):
+            # Special handling for the 'AGENTS' column
+            if headers[i].strip().upper() == 'AGENTS':
+                # Extract agent images from the cell
+                agent_imgs = cell.find_elements(By.TAG_NAME, 'img')
+                
+                # Extract agent names from the 'src' attribute
+                agent_names = []
+                for img in agent_imgs:
+                    src = img.get_attribute('src')
+                    # Extract the agent name from the URL
+                    if src:
+                        agent_name = src.split('/agents/')[1].split('.png')[0]
+                        agent_names.append(agent_name)
+
+                # Join agent names as a comma-separated string
+                row_data.append(', '.join(agent_names))
+            else:
+                row_data.append(cell.text)
+
+        # Store row data if it has content
         if row_data:
             data.append(row_data)
 
-     # Write the data to a CSV file
+    # Write the data to a CSV file
     csv_filename = 'scraped-data.csv'
     with open(csv_filename, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
@@ -88,13 +108,10 @@ def scrape_and_store():
 
     print("CSV file successfully uploaded to S3!")
 
-
-
-
 def read_data_from_s3():
     # S3 Details (replace with your bucket name and object key)
     bucket_name = 'vlrscraperbucket'
-    object_key = 'scraped-data.csv'  # Update to the correct CSV file name
+    object_key = 'scraped-data.csv'
     
     # Get the object from S3
     response = s3_client.get_object(Bucket=bucket_name, Key=object_key)
