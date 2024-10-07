@@ -1,14 +1,16 @@
 import csv
 import json
+import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import StaleElementReferenceException
 import boto3
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from io import StringIO
 import os
-import time
+import regex as re
 
 # AWS Credentials (replace with your actual credentials)
 aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
@@ -22,6 +24,18 @@ s3_client = boto3.client(
     aws_secret_access_key=aws_secret_access_key,
     region_name=aws_region
 )
+
+def upload_to_s3(data, bucket_name, object_key):
+    # Convert data to JSON string
+    json_data = json.dumps(data, indent=4)
+    
+    # Upload the JSON string to S3
+    s3_client.put_object(
+        Bucket=bucket_name,
+        Key=object_key,
+        Body=json_data
+    )
+    print(f"Data successfully uploaded to S3: s3://{bucket_name}/{object_key}")
 
 def scrape_and_store():
     # Selenium setup for headless Chrome browser
@@ -39,113 +53,219 @@ def scrape_and_store():
     # Wait for the table to load
     try:
         WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.TAG_NAME, 'table')))
-        print("Page loaded successfully")
     except:
         print("Page loading timeout or element not found")
 
-    player_data = []
-
-    # Extract the rows' count beforehand
+    # Extract headers
     table = driver.find_element(By.TAG_NAME, 'table')
-    row_count = len(table.find_elements(By.TAG_NAME, 'tr'))
+    headers = [header.text for header in table.find_elements(By.TAG_NAME, 'thead')[0].find_elements(By.TAG_NAME, 'th')]
 
-    for row_index in range(1, row_count):  # Skip header row
+    players_data = []
+
+    # Iterate through row indices to avoid stale references
+    row_index = 1
+    while True:  # Remove row limit to scrape all records
         try:
-            # Re-locate table and rows each time to avoid stale elements
+            # Refresh the list of rows to avoid stale references
             table = driver.find_element(By.TAG_NAME, 'table')
             rows = table.find_elements(By.TAG_NAME, 'tr')
-            cells = rows[row_index].find_elements(By.TAG_NAME, 'td')
 
-            player_info = {}
+            if row_index >= len(rows):
+                break
+
+            row = rows[row_index]
+
+            # Retry mechanism for stale element
+            for attempt in range(3):
+                try:
+                    cells = row.find_elements(By.TAG_NAME, 'td')
+                    break  # Break loop if successful
+                except StaleElementReferenceException:
+                    time.sleep(2)
+                    # Refresh rows in case of stale reference
+                    table = driver.find_element(By.TAG_NAME, 'table')
+                    rows = table.find_elements(By.TAG_NAME, 'tr')
+                    row = rows[row_index]
+
+                    if attempt == 2:
+                        raise
+
+            player_info = {
+                "player_profile": {},
+                "statistics": {
+                    "agents": [],
+                    "performance": {}
+                },
+                "history": {
+                    "current_team": {},
+                    "past_teams": [],
+                    "tournaments": []
+                }
+            }
+            
             for i, cell in enumerate(cells):
+                header = headers[i].strip().upper()
+
                 # Special handling for the 'PLAYER' column to get the player profile URL
-                if "PLAYER" in cell.get_attribute('outerHTML').upper():
-                    player_name = cell.text.strip()
+                if header == 'PLAYER':
+                    combined_name = cell.text.strip()
                     player_url = cell.find_element(By.TAG_NAME, 'a').get_attribute('href')
-                    player_info['player_name'] = player_name
-                    player_info['player_url'] = player_url
+                    
+                    # Extract player_id from the player URL
+                    try:
+                        player_id = player_url.split('/player/')[1].split('/')[0]
+                        player_info["player_profile"]["player_id"] = player_id
+                    except IndexError:
+                        player_info["player_profile"]["player_id"] = "Unknown"
+                    
+                    # Split player name and team from the combined name
+                    if "\n" in combined_name:
+                        player_name, team = combined_name.split("\n", 1)
+                    else:
+                        player_name, team = combined_name, "Unknown"
+
+                    # Store player name, team, and URL
+                    player_info["player_profile"]["player_name"] = player_name
+                    player_info["player_profile"]["team"] = team
+                    player_info["player_profile"]["player_url"] = player_url
 
                 # Handle 'AGENTS' column for agents played
-                elif "AGENTS" in cell.get_attribute('outerHTML').upper():
+                elif header == 'AGENTS':
                     agent_imgs = cell.find_elements(By.TAG_NAME, 'img')
-                    agent_names = [img.get_attribute('src').split('/agents/')[1].split('.png')[0] for img in agent_imgs]
-                    player_info['agents'] = ', '.join(agent_names)
+                    agent_names = []
+
+                    # Extract agent names from either 'alt' or 'src'
+                    for img in agent_imgs:
+                        agent_name = img.get_attribute('alt')
+                        if not agent_name:
+                            # Fallback to 'src' if 'alt' is not present
+                            src = img.get_attribute('src')
+                            if src:
+                                try:
+                                    agent_name = src.split('/agents/')[1].split('.png')[0]
+                                except IndexError:
+                                    agent_name = None
+                        
+                        if agent_name:
+                            agent_names.append({"agent_name": agent_name})
+
+                    player_info["statistics"]["agents"] = agent_names
+
+                # Add performance metrics to the "performance" section
                 else:
-                    header = table.find_element(By.XPATH, f"//thead//th[{i + 1}]").text.strip()
-                    player_info[header] = cell.text
+                    performance_metric = cell.text.strip()
+                    player_info["statistics"]["performance"][header] = performance_metric
 
             # Navigate to the player's profile page and collect detailed stats
-            driver.get(player_info['player_url'])
-            WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, 'player-header')))
-
-            # Extract additional details from the player's profile page (example selectors)
+            driver.get(player_info["player_profile"]["player_url"])
             try:
+                WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, 'player-header')))
+
                 # Extract region/country
-                region_element = driver.find_element(By.XPATH, "//div[@class='ge-text-light']")
-                player_region = region_element.text.strip().split("\n")[-1]
-                player_info['region'] = player_region
-                print(f'Player Region: {player_region}')
+                try:
+                    region_element = driver.find_element(By.XPATH, "//div[@class='ge-text-light']")
+                    player_region = region_element.text.strip().split("\n")[-1]
+                    player_info["player_profile"]['region'] = player_region
+                except Exception as e:
+                    print(f"Error extracting region: {str(e)}")
 
                 # Extract agent-specific stats from player's profile
                 agent_stats = []
-                agent_rows = driver.find_elements(By.CSS_SELECTOR, '.wf-table tbody tr')
+                agents_table = driver.find_element(By.XPATH, "//table[@class='wf-table']")
+                agent_rows = agents_table.find_elements(By.TAG_NAME, 'tr')
+                
                 for agent_row in agent_rows:
                     cells = agent_row.find_elements(By.TAG_NAME, 'td')
-                    agent_name = cells[0].text.strip()
-                    acs = cells[3].text.strip()  # Adjust index based on structure (ACS column)
-                    kd = cells[4].text.strip()  # Adjust index for K:D
-                    agent_stats.append({'agent_name': agent_name, 'acs': acs, 'kd': kd})
+                    if len(cells) >= 11:  # Ensure sufficient columns are present
+                        agent_name = cells[0].find_element(By.TAG_NAME, 'img').get_attribute('alt')
+                        usage = cells[1].text.strip()
+                        rnd = cells[2].text.strip()
+                        rating = cells[3].text.strip()
+                        acs = cells[4].text.strip()
+                        kd = cells[5].text.strip()
+                        adr = cells[6].text.strip()
+                        kast = cells[7].text.strip()
+                        kpr = cells[8].text.strip()
+                        apr = cells[9].text.strip()
+                        fkpr = cells[10].text.strip()
+                        fdpr = cells[11].text.strip()
+                        k = cells[12].text.strip()
+                        d = cells[13].text.strip()
+                        a = cells[14].text.strip()
+                        fk = cells[15].text.strip()
+                        fd = cells[16].text.strip()
+                        
+                        agent_stats.append({
+                            'agent_name': agent_name,
+                            'usage': usage,
+                            'rating': rating,
+                            'RND': rnd,
+                            'ACS': acs,
+                            'K:D': kd,
+                            'ADR': adr,
+                            'KAST': kast,
+                            'KPR': kpr,
+                            'APR': apr,
+                            'FKPR': fkpr,
+                            'FDPR': fdpr,
+                            'k': k,
+                            'd': d,
+                            'a': a,
+                            'fk': fk,
+                            'fd': fd
+                        })
                 
-                player_info['detailed_agent_stats'] = agent_stats
+                player_info["statistics"]["agents"] = agent_stats
 
-                # Extract current and past teams
-                current_team_element = driver.find_element(By.CLASS_NAME, 'wf-module-item')
-                current_team_name = current_team_element.text.strip()
-                current_team_url = current_team_element.get_attribute('href')
-                player_info['current_team'] = current_team_name
-                player_info['current_team_url'] = current_team_url
+                try:
+                    # Extract current team details
+                    current_team_element = driver.find_element(By.CLASS_NAME, 'wf-module-item')
+                    team_name_duration = current_team_element.text.strip().split("\n")
+                    
+                    # Separate team name and duration
+                    if len(team_name_duration) >= 2:
+                        team_name = team_name_duration[0].strip()
+                        duration = team_name_duration[1].strip()
+                    else:
+                        team_name = team_name_duration[0].strip()
+                        duration = ""  # Default to empty string if duration not present
 
-                # Extract past teams
-                past_team_elements = driver.find_elements(By.CLASS_NAME, 'wf-module-item')
-                past_teams = []
-                for team_element in past_team_elements:
-                    past_team_name = team_element.text.strip()
-                    past_team_url = team_element.get_attribute('href')
-                    past_teams.append({'name': past_team_name, 'url': past_team_url})
-                player_info['past_teams'] = past_teams
+                    team_url = current_team_element.get_attribute('href')
+                    
+                    # Extract team_id from the team URL
+                    try:
+                        team_id = team_url.split('/team/')[1].split('/')[0]
+                    except IndexError:
+                        team_id = "Unknown"
+                    
+                    player_info["history"]["current_team"] = {
+                        "name": team_name,
+                        "duration": duration,
+                        "url": team_url,
+                        "team_id": team_id
+                    }
+                except Exception as e:
+                    print(f"Error extracting current team: {str(e)}")
+
+                # Additional details about past teams and events would go here (as in original logic)
 
             except Exception as e:
-                print(f"Error extracting details for {player_info['player_name']}: {str(e)}")
+                print(f"Error navigating to player profile for {player_info['player_profile']['player_name']}: {str(e)}")
 
-            # Go back to the main page
+            players_data.append(player_info)
+            row_index += 1
+
+            # Go back to the main page to continue extracting the next player's data
             driver.get(url)
-            WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.TAG_NAME, 'table')))
-            time.sleep(1)  # Wait briefly to ensure page stability before continuing
-
+        
         except Exception as e:
-            print(f"Error processing row {row_index}: {str(e)}")
+            print(f"Error processing row index {row_index}: {str(e)}")
+            break  # Break loop if there's an error in processing
 
-        player_data.append(player_info)
-
-    # Save the data to a JSON file
-    json_filename = 'players_data.json'
-    with open(json_filename, 'w', encoding='utf-8') as f:
-        json.dump(player_data, f, ensure_ascii=False, indent=4)
-
-    print(f"Data successfully saved to {json_filename}")
-    
     driver.quit()
 
-    # Upload the JSON file to S3
-    with open(json_filename, 'rb') as file:
-        s3_client.put_object(
-            Bucket='vlrscraperbucket',
-            Key=json_filename,
-            Body=file,
-            ContentType='application/json'
-        )
-
-    print("JSON file successfully uploaded to S3!")
+    # Upload the complete data to S3
+    upload_to_s3(players_data, bucket_name='vlrscraperbucket', object_key='players_data.json')
 
 def read_data_from_s3():
     # S3 Details (replace with your bucket name and object key)
@@ -168,4 +288,4 @@ def read_data_from_s3():
 
 if __name__ == "__main__":
     scrape_and_store()
-    read_data_from_s3()
+    # read_data_from_s3()
