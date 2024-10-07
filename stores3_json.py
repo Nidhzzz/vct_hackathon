@@ -8,7 +8,6 @@ from selenium.common.exceptions import StaleElementReferenceException
 import boto3
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from io import StringIO
 import os
 import regex as re
 
@@ -218,44 +217,163 @@ def scrape_and_store():
                 player_info["statistics"]["agents"] = agent_stats
 
                 try:
-                    # Extract current team details
-                    current_team_element = driver.find_element(By.CLASS_NAME, 'wf-module-item')
-                    team_name_duration = current_team_element.text.strip().split("\n")
-                    
-                    # Separate team name and duration
-                    if len(team_name_duration) >= 2:
-                        team_name = team_name_duration[0].strip()
-                        duration = team_name_duration[1].strip()
-                    else:
-                        team_name = team_name_duration[0].strip()
-                        duration = ""  # Default to empty string if duration not present
+                    # Locate the container for current teams specifically
+                    current_team_container = driver.find_element(By.XPATH, "//h2[contains(text(),'Current Teams')]/following-sibling::div[@class='wf-card']")
+                    # Find all individual team items
+                    current_team_items = current_team_container.find_elements(By.CSS_SELECTOR, "a.wf-module-item")
 
-                    team_url = current_team_element.get_attribute('href')
-                    
-                    # Extract team_id from the team URL
-                    try:
-                        team_id = team_url.split('/team/')[1].split('/')[0]
-                    except IndexError:
-                        team_id = "Unknown"
-                    
-                    player_info["history"]["current_team"] = {
-                        "name": team_name,
-                        "duration": duration,
-                        "url": team_url,
-                        "team_id": team_id
-                    }
+                    # Check if there's any team in the current teams section
+                    if current_team_items:
+                        current_team_element = current_team_items[0]  # Assuming there's only one current team
+                        team_name_duration = current_team_element.text.strip().split("\n")
+                        
+                        # Separate team name and duration
+                        if len(team_name_duration) >= 2:
+                            team_name = team_name_duration[0].strip()
+                            duration = team_name_duration[1].strip()
+                        else:
+                            team_name = team_name_duration[0].strip()
+                            duration = ""  # Default to empty string if duration not present
+
+                        team_url = current_team_element.get_attribute('href')
+
+                        # Extract team_id from the team URL
+                        try:
+                            team_id = team_url.split('/team/')[1].split('/')[0]
+                        except IndexError:
+                            team_id = "Unknown"
+                        
+                        player_info["history"]["current_team"] = {
+                            "name": team_name,
+                            "duration": duration,
+                            "url": team_url,
+                            "team_id": team_id
+                        }
+                    else:
+                        # If no current team is found, set current team to empty
+                        player_info["history"]["current_team"] = {}
+
                 except Exception as e:
+                    # If no current team section is found or another error occurs, set current team to empty
+                    player_info["history"]["current_team"] = {}
                     print(f"Error extracting current team: {str(e)}")
 
-                # Additional details about past teams and events would go here (as in original logic)
+
+                # Extract past team details
+                try:
+                    # Locate the container for past teams
+                    past_teams_container = driver.find_element(By.XPATH, "//h2[contains(text(),'Past Teams')]/following-sibling::div[@class='wf-card']")
+                    # Find all individual team items
+                    past_team_items = past_teams_container.find_elements(By.CSS_SELECTOR, "a.wf-module-item")
+
+                    # Extract details from each past team
+                    for team_element in past_team_items:
+                        try:
+                            # Extract team name
+                            team_name_element = team_element.find_element(By.XPATH, ".//div[@style='font-weight: 500;']")
+                            team_name = team_name_element.text.strip() if team_name_element else "Unknown"
+
+                            # Extract duration and replace Unicode em dash with a hyphen
+                            team_duration_elements = team_element.find_elements(By.XPATH, ".//div[@class='ge-text-light']")
+                            team_duration = team_duration_elements[-1].text.strip().replace("\u2013", "-")
+
+                            # Extract team URL
+                            team_url = team_element.get_attribute('href')
+                            try:
+                                team_id = team_url.split('/team/')[1].split('/')[0] 
+                            except IndexError:
+                                team_id = "Unknown"
+
+                            # Append each team as a separate dictionary to the "past_teams" list
+                            player_info["history"]["past_teams"].append({
+                                "team_id": team_id,
+                                "name": team_name,
+                                "duration": team_duration,
+                                "url": team_url
+                            })
+
+                        except Exception as e:
+                            print(f"Could not extract past team details properly: {str(e)}")
+
+                except Exception as e:
+                    print(f"Error extracting past teams for {player_info['player_profile']['player_name']}: {str(e)}")
+
+                # Extract event placements
+                try:
+                    # Locate the container for event placements
+                    event_placements_container = driver.find_element(By.XPATH, "//h2[contains(text(),'Event Placements')]/following-sibling::div[@class='wf-card']")
+                    # Find all individual event items
+                    event_items = event_placements_container.find_elements(By.XPATH, ".//a[contains(@class, 'player-event-item')]")
+
+                    # Extract details from each event placement
+                    for event_element in event_items:
+                        try:
+                            # Extract event name combined details
+                            event_combined_details = event_element.text.strip()
+                            event_url = event_element.get_attribute('href')
+                            try:
+                                event_id = event_url.split('/event/')[1].split('/')[0]  
+                            except IndexError:
+                                event_id = "Unknown"
+
+                            # Split the combined details into lines
+                            details_lines = event_combined_details.split("\n")
+
+                            # Extract the relevant details based on the line structure
+                            if len(details_lines) >= 3:
+                                tournament_name = details_lines[0]
+                                position = details_lines[1].replace("\u2013", "-")  # Reformatting the hyphen
+                                winnings_full = details_lines[2]
+
+                                # Enhanced Parsing Logic
+                                # Use regex to identify winnings amount
+                                match = re.search(r"(\$[\d,]+)", winnings_full)
+                                if match:
+                                    winnings_amount = match.group(1).replace(",", "")
+                                    # Extract the team name by removing the winnings amount
+                                    with_team = winnings_full.replace(winnings_amount, "").strip()
+
+                                    # Handle cases like "$1316 BBL Queens" where winnings and team are combined
+                                    if with_team.startswith("$"):
+                                        # Split the string further to isolate the winnings and team
+                                        parts = with_team.split(" ", 1)
+                                        winnings_amount = parts[0].replace(",", "")
+                                        with_team = parts[1] if len(parts) > 1 else ""
+
+                                else:
+                                    winnings_amount = ""
+                                    with_team = winnings_full.strip()
+
+                            else:
+                                tournament_name = details_lines[0]
+                                position = winnings_amount = with_team = ""  # Default if not all details are present
+
+                            # Append the extracted details into the player's tournament history
+                            player_info["history"]["tournaments"].append({
+                                "event_id": event_id,
+                                "tournament_name": tournament_name,
+                                "position": position,
+                                "winnings": winnings_amount,
+                                "with_team": with_team,
+                                "url": event_url
+                            })
+
+                        except Exception as e:
+                            print(f"Could not extract event placement details properly: {str(e)}")
+
+                except Exception as e:
+                    print(f"Error extracting event placements for {player_info['player_profile']['player_name']}: {str(e)}")
 
             except Exception as e:
                 print(f"Error navigating to player profile for {player_info['player_profile']['player_name']}: {str(e)}")
 
             players_data.append(player_info)
             row_index += 1
-
-            # Go back to the main page to continue extracting the next player's data
+            # print(f"player_data:{players_data}")
+            # print json in proper format
+            # print(json.dumps(players_data, indent=4))
+            # return
+    #         # Go back to the main page to continue extracting the next player's data
             driver.get(url)
         
         except Exception as e:
@@ -265,7 +383,8 @@ def scrape_and_store():
     driver.quit()
 
     # Upload the complete data to S3
-    upload_to_s3(players_data, bucket_name='vlrscraperbucket', object_key='players_data.json')
+    upload_to_s3(players_data, bucket_name='vlrscraperbucket', object_key='vct_players_data.json')
+
 
 def read_data_from_s3():
     # S3 Details (replace with your bucket name and object key)
