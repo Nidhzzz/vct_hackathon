@@ -1,0 +1,76 @@
+# Metadata for tournaments.json
+
+## Overview
+This file contains data about tournaments within the VCT Challengers league, providing key details for event management and player participation tracking.
+
+---
+{
+    "metadata": {
+        "description": "This metadata structure provides essential information about each JSON file related to the vct-challengers league. It ensures consistency and clarity when handling data across different files.",
+        "fields": {
+            "league": {
+                "description": "The name of the esports league, in this case, 'vct-challengers'. This field helps identify the context of the data."
+            },
+            "year": {
+                "description": "The year associated with the data in the file. This field is crucial for temporal context and helps differentiate between data from different seasons."
+            },
+            "file_type": {
+                "description": "The type of data contained in the file, such as 'tournaments', 'teams', 'players', 'mapping_data', or 'leagues'. This field provides insight into the kind of entities the data represents."
+            },
+            "description": {
+                "description": "A brief overview of the contents and purpose of the file. This field is important for understanding what kind of information can be found within the file and how it may relate to other files."
+            }
+        },
+        "usage": {
+            "description": "This metadata structure is intended for use in systems that process or analyze esports data. It aids in the correct interpretation of the data files and facilitates the connection of related data across different JSON files."
+        }
+    }
+}
+
+
+
+### JSON File: tournaments.json
+
+- **Description**: Contains data about tournaments held in the VCT Challengers league.
+  
+- **Fields**:
+  - **id**: 
+    - **Type**: String
+    - **Description**: Unique identifier for the tournament.
+    - **Connections**: Links to `tournamentId` in `mapping_data.json` to relate tournaments to their mapping information.
+
+  - **status**: 
+    - **Type**: String
+    - **Description**: Current status of the tournament (e.g., published, ongoing).
+  
+  - **league_id**: 
+    - **Type**: String
+    - **Description**: Identifier for the league to which the tournament belongs.
+    - **Connections**: Connects to `league_id` in `leagues.json` to provide league context.
+
+  - **time_zone**: 
+    - **Type**: String
+    - **Description**: Time zone in which the tournament takes place.
+  
+  - **name**: 
+    - **Type**: String
+    - **Description**: Name of the tournament.
+  
+  - **start_time**: 
+    - **Type**: String (ISO 8601 format)
+    - **Description**: Start date and time of the tournament in UTC.
+  
+  - **end_time**: 
+    - **Type**: String (ISO 8601 format)
+    - **Description**: End date and time of the tournament in UTC.
+
+---
+
+## Connection Guidance
+- Use **league_id** to find related teams in **teams.json** via the **home_league_id**.
+- Link tournament participants through **tournamentId** in **mapping_data.json** to access player and team information.
+- Utilize **start_time** and **end_time** for scheduling and managing tournament-related events.
+
+---
+
+This metadata will assist the in understanding the structure and connections of the **tournaments.json** file, enabling it to make informed decisions when processing tournament-related queries or analyses.

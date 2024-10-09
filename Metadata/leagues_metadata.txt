@@ -1,0 +1,75 @@
+# Metadata for leagues.json
+
+## Overview
+This file contains information about various esports leagues, including their identifiers, regional affiliations, logos, and other relevant details.
+
+---
+
+{
+    "metadata": {
+        "description": "This metadata structure provides essential information about each JSON file related to the vct-challengers league. It ensures consistency and clarity when handling data across different files.",
+        "fields": {
+            "league": {
+                "description": "The name of the esports league, in this case, 'vct-challengers'. This field helps identify the context of the data."
+            },
+            "year": {
+                "description": "The year associated with the data in the file. This field is crucial for temporal context and helps differentiate between data from different seasons."
+            },
+            "file_type": {
+                "description": "The type of data contained in the file, such as 'tournaments', 'teams', 'players', 'mapping_data', or 'leagues'. This field provides insight into the kind of entities the data represents."
+            },
+            "description": {
+                "description": "A brief overview of the contents and purpose of the file. This field is important for understanding what kind of information can be found within the file and how it may relate to other files."
+            }
+        },
+        "usage": {
+            "description": "This metadata structure is intended for use in systems that process or analyze esports data. It aids in the correct interpretation of the data files and facilitates the connection of related data across different JSON files."
+        }
+    }
+}
+
+
+### JSON File: leagues.json
+
+- **Description**: Contains league details that are relevant to the tournaments and teams within the esports ecosystem.
+
+- **Fields**:
+  - **league_id**: 
+    - **Type**: String
+    - **Description**: Unique identifier for the league.
+    - **Connections**: This field connects to **league_id** in **teams.json** and **tournaments.json**, providing a reference point for all associated data.
+
+  - **region**: 
+    - **Type**: String
+    - **Description**: Specifies the geographical region in which the league operates (e.g., SEA for Southeast Asia).
+    - **Connections**: Can help filter or categorize tournaments and teams based on their regional affiliations.
+
+  - **dark_logo_url**: 
+    - **Type**: String
+    - **Description**: URL for the league's logo displayed in a dark theme.
+    - **Connections**: Used in user interfaces to represent the league visually.
+
+  - **light_logo_url**: 
+    - **Type**: String
+    - **Description**: URL for the league's logo displayed in a light theme.
+    - **Connections**: Similar to **dark_logo_url**, but used in different visual contexts.
+
+  - **name**: 
+    - **Type**: String
+    - **Description**: Official name of the league.
+    - **Connections**: This name can be referenced when displaying league information to users or in reports.
+
+  - **slug**: 
+    - **Type**: String
+    - **Description**: A URL-friendly version of the league's name, typically in lowercase and hyphenated.
+    - **Connections**: Useful for constructing URLs and linking to league-specific pages.
+
+---
+
+## Connection Guidance
+- Use **league_id** to link league details to tournaments in **tournaments.json** and teams in **teams.json**.
+- The **region** can assist in filtering and categorizing data when analyzing tournaments and team performance across different geographical areas.
+
+---
+
+This metadata will help the LLM understand the structure and connections of the **leagues.json** file, facilitating better decision-making when processing league information within the esports ecosystem.

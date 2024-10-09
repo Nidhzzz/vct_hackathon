@@ -1,0 +1,76 @@
+teams_metadata
+
+
+## Overview
+This file contains data about teams participating in the VCT Challengers league, providing essential details for team management and event participation tracking.
+
+---
+{
+    "metadata": {
+        "description": "This metadata structure provides essential information about each JSON file related to the vct-challengers league. It ensures consistency and clarity when handling data across different files.",
+        "fields": {
+            "league": {
+                "description": "The name of the esports league, in this case, 'vct-challengers'. This field helps identify the context of the data."
+            },
+            "year": {
+                "description": "The year associated with the data in the file. This field is crucial for temporal context and helps differentiate between data from different seasons."
+            },
+            "file_type": {
+                "description": "The type of data contained in the file, such as 'tournaments', 'teams', 'players', 'mapping_data', or 'leagues'. This field provides insight into the kind of entities the data represents."
+            },
+            "description": {
+                "description": "A brief overview of the contents and purpose of the file. This field is important for understanding what kind of information can be found within the file and how it may relate to other files."
+            }
+        },
+        "usage": {
+            "description": "This metadata structure is intended for use in systems that process or analyze esports data. It aids in the correct interpretation of the data files and facilitates the connection of related data across different JSON files."
+        }
+    }
+}
+
+
+
+### JSON File: teams.json
+
+- **Description**: Contains information about teams involved in the VCT Challengers league.
+
+- **Fields**:
+  - **id**: 
+    - **Type**: String
+    - **Description**: Unique identifier for the team.
+    - **Connections**: Links to **home_team_id** in **players.json** to relate players to their respective teams.
+
+  - **acronym**: 
+    - **Type**: String
+    - **Description**: Shortened representation of the team's name.
+
+  - **home_league_id**: 
+    - **Type**: String
+    - **Description**: Identifier for the league to which the team belongs.
+    - **Connections**: Connects to **league_id** in **leagues.json** to provide league context.
+
+  - **dark_logo_url**: 
+    - **Type**: String (URL)
+    - **Description**: URL for the team's dark logo, can ignore it.
+
+  - **light_logo_url**: 
+    - **Type**: String (URL)
+    - **Description**: URL for the team's light logo, can ignore it.
+
+  - **slug**: 
+    - **Type**: String
+    - **Description**: URL-friendly representation of the team's name, typically used in web contexts.
+
+  - **name**: 
+    - **Type**: String
+    - **Description**: Official name of the team.
+
+---
+
+## Connection Guidance
+- Use **id** to find related players in **players.json** via **home_team_id**.
+- Connect teams to their league context using **home_league_id** to reference **leagues.json**.
+
+---
+
+This metadata will assist the LLM  the structure and connections of the **teams.json** file, enabling it to make informed decisions when processing team-related queries or analyses.

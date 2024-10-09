@@ -1,0 +1,86 @@
+Connections for json files 
+# Metadata for JSON Files
+
+## Overview
+This document describes the structure and relationships of various JSON files related to esports tournaments, teams, players, mapping data, and leagues. The LLM can use this metadata to establish connections and provide insights based on the data.
+
+---
+
+### JSON File: tournaments.json
+
+- **Description**: Contains data about tournaments in the VCT Challengers league.
+- **Fields**:
+  - `id`: Unique identifier for the tournament.
+  - `status`: Current status of the tournament (e.g., published).
+  - `league_id`: Identifier for the league to which the tournament belongs. Connects to `leagues.json` (field: `league_id`).
+  - `time_zone`: Time zone for the tournament.
+  - `name`: Name of the tournament.
+  - `start_time`: Start date and time of the tournament.
+  - `end_time`: End date and time of the tournament.
+
+---
+
+### JSON File: teams.json
+
+- **Description**: Contains data about teams participating in the league.
+- **Fields**:
+  - `id`: Unique identifier for the team. Connects to `home_team_id` in `players.json`.
+  - `acronym`: Short form or abbreviation for the team.
+  - `home_league_id`: Identifier for the league where the team is based. Connects to `leagues.json` (field: `league_id`).
+  - `dark_logo_url`: URL for the team's dark logo.
+  - `light_logo_url`: URL for the team's light logo.
+  - `slug`: URL-friendly name for the team.
+  - `name`: Full name of the team.
+
+---
+
+### JSON File: players.json
+
+- **Description**: Contains data about players in the tournaments.
+- **Fields**:
+  - `id`: Unique identifier for the player.
+  - `handle`: Player's in-game handle or nickname.
+  - `first_name`: Player's first name.
+  - `last_name`: Player's last name.
+  - `status`: Current status of the player (e.g., active).
+  - `photo_url`: URL for the player's photo.
+  - `home_team_id`: Identifier for the team the player belongs to. Connects to `teams.json` (field: `id`).
+  - `created_at`: Timestamp for when the player record was created.
+  - `updated_at`: Timestamp for when the player record was last updated.
+
+---
+
+### JSON File: mapping_data.json
+
+- **Description**: Contains mapping information for tournaments and teams, linking players to their respective teams and tournaments.
+- **Fields**:
+  - `platformGameId`: Unique identifier for the game.
+  - `esportsGameId`: Unique identifier for the esports game.
+  - `tournamentId`: Identifier for the tournament. Connects to `tournaments.json` (field: `id`).
+  - `teamMapping`: Mapping of team IDs to tournament participant IDs. Connects team IDs in `teams.json`.
+  - `participantMapping`: Mapping of participant IDs to player IDs. Connects player IDs in `players.json`.
+
+---
+
+### JSON File: leagues.json
+
+- **Description**: Contains data about leagues.
+- **Fields**:
+  - `league_id`: Unique identifier for the league. Connects to `league_id` in `tournaments.json` and `home_league_id` in `teams.json`.
+  - `region`: Geographic region of the league.
+  - `dark_logo_url`: URL for the league's dark logo.
+  - `light_logo_url`: URL for the league's light logo.
+  - `name`: Name of the league.
+  - `slug`: URL-friendly name for the league.
+
+---
+
+## Connection Guidance
+- To connect **tournaments** with **teams**, use the `league_id` in `tournaments.json` to find relevant teams in `teams.json` using `home_league_id`.
+- To link **players** with their **teams**, use the `home_team_id` in `players.json` to find the corresponding team in `teams.json`.
+- To analyze player participation in **tournaments**, utilize `participantMapping` in `mapping_data.json` to relate player IDs to tournament participant IDs.
+- Use the **leagues** data to provide additional context for **tournaments** and **teams**.
+
+---
+
+This metadata will help your LLM understand the relationships between the various data points and facilitate accurate connections when querying or analyzing the data. The LLM can utilize the structured information to build complex queries, fetch data, and return meaningful insights based on the connections defined.

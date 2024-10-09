@@ -1,0 +1,82 @@
+Metadata for JSON Structure
+player_profile
+
+player_id: Unique identifier for the player.
+player_name: Name of the player.
+team: Current team of the player.
+player_url: URL to the player’s profile on VLR.gg.
+region: Region the player is based in (e.g., Turkey).
+Purpose:
+
+This section contains general information about the player. Useful for identifying the player and retrieving links or profile data.
+statistics
+
+agents:
+
+A list of agents the player has used, along with performance statistics for each agent.
+agent_name: The name of the agent (e.g., Omen, Harbor, Gekko).
+RND: Number of rounds played with that agent.
+ACS: Average Combat Score with the agent.
+K
+: Kill/Death ratio while using the agent.
+ADR: Average Damage per Round for that agent.
+KAST: Kill, Assist, Survive, Trade percentage.
+KPR: Kill per Round.
+APR: Assist per Round.
+FKPR: First Kill per Round.
+FDPR: First Death per Round.
+k: Number of kills.
+d: Number of deaths.
+a: Number of assists.
+fk: Number of first kills.
+fd: Number of first deaths.
+performance:
+
+Overall performance statistics across all agents and games.
+RND: Total rounds played.
+R2.0: Rating 2.0 (a comprehensive performance rating).
+ACS: Average Combat Score across all rounds.
+K
+: Overall Kill/Death ratio.
+KAST: Overall Kill, Assist, Survive, Trade percentage.
+ADR: Average Damage per Round across all games.
+KPR: Overall Kill per Round.
+APR: Overall Assist per Round.
+FKPR: Overall First Kill per Round.
+FDPR: Overall First Death per Round.
+HS%: Headshot percentage.
+CL%: Clutch percentage.
+CL: Number of clutches won/lost.
+KMAX: Maximum kills in a single game.
+K: Total kills.
+D: Total deaths.
+A: Total assists.
+FK: Total first kills.
+FD: Total first deaths.
+Purpose:
+
+This section provides in-depth statistics on the player's performance by agent and overall in matches. Useful for detailed performance analysis.
+history
+
+current_team:
+name: The name of the player’s current team.
+duration: Time spent with the current team.
+url: URL to the team's profile page.
+team_id: Unique identifier for the team.
+past_teams:
+List of the player’s previous teams, along with details on time spent with each.
+team_id: Unique identifier for the past team.
+name: Name of the past team.
+duration: Time the player spent with this team.
+url: URL to the team's profile page.
+tournaments:
+List of tournaments the player has participated in, including performance and winnings.
+event_id: Unique identifier for the event.
+tournament_name: Name of the tournament.
+position: The position the player’s team finished in.
+winnings: The prize money earned from the tournament.
+with_team: The team the player was part of during that tournament.
+url: URL to the tournament page.
+Purpose:
+
+This section contains historical data about the player's career, including past teams and tournament achievements. It is useful for answering questions related to career progression, team changes, and tournament results.

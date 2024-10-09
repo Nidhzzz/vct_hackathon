@@ -1,0 +1,85 @@
+players_metadata
+
+# Metadata for players.json
+
+## Overview
+This file contains data about players participating in the VCT Challengers league, detailing their personal information and team affiliations.
+
+---
+
+{
+    "metadata": {
+        "description": "This metadata structure provides essential information about each JSON file related to the vct-challengers league. It ensures consistency and clarity when handling data across different files.",
+        "fields": {
+            "league": {
+                "description": "The name of the esports league, in this case, 'vct-challengers'. This field helps identify the context of the data."
+            },
+            "year": {
+                "description": "The year associated with the data in the file. This field is crucial for temporal context and helps differentiate between data from different seasons."
+            },
+            "file_type": {
+                "description": "The type of data contained in the file, such as 'tournaments', 'teams', 'players', 'mapping_data', or 'leagues'. This field provides insight into the kind of entities the data represents."
+            },
+            "description": {
+                "description": "A brief overview of the contents and purpose of the file. This field is important for understanding what kind of information can be found within the file and how it may relate to other files."
+            }
+        },
+        "usage": {
+            "description": "This metadata structure is intended for use in systems that process or analyze esports data. It aids in the correct interpretation of the data files and facilitates the connection of related data across different JSON files."
+        }
+    }
+}
+
+
+### JSON File: players.json
+
+- **Description**: Contains information about individual players, including their identification and team association.
+
+- **Fields**:
+  - **id**: 
+    - **Type**: String
+    - **Description**: Unique identifier for the player.
+    - **Connections**: Links to **home_team_id** to associate the player with their respective team in **teams.json**.
+
+  - **handle**: 
+    - **Type**: String
+    - **Description**: Player's in-game username or handle.
+
+  - **first_name**: 
+    - **Type**: String
+    - **Description**: Player's first name.
+
+  - **last_name**: 
+    - **Type**: String
+    - **Description**: Player's last name.
+
+  - **status**: 
+    - **Type**: String
+    - **Description**: Current status of the player (e.g., active, inactive).
+
+  - **photo_url**: 
+    - **Type**: String (URL)
+    - **Description**: URL for the player’s profile photo. This can be `null` if no photo is available.
+
+  - **home_team_id**: 
+    - **Type**: String
+    - **Description**: Identifier for the team that the player belongs to.
+    - **Connections**: Links to **id** in **teams.json** to provide team context.
+
+  - **created_at**: 
+    - **Type**: String (ISO 8601 date-time format)
+    - **Description**: Timestamp indicating when the player's record was created.
+
+  - **updated_at**: 
+    - **Type**: String (ISO 8601 date-time format)
+    - **Description**: Timestamp indicating when the player's record was last updated.
+
+---
+
+## Connection Guidance
+- Use **home_team_id** to connect players to their teams in **teams.json** using the team's **id**.
+- Leverage the **id** field to establish relationships with other player-related data and events.
+
+---
+
+This metadata will assist in understanding the structure and connections of the **players.json** file, enabling it to make informed decisions when processing player-related queries or analyses.

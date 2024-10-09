@@ -1,0 +1,78 @@
+mapping_data_metadata
+
+# Metadata for mapping_data.json
+
+## Overview
+This file contains mapping data that associates various identifiers used in the esports domain, specifically linking tournaments, games, teams, and participants.
+
+---
+
+{
+    "metadata": {
+        "description": "This metadata structure provides essential information about each JSON file related to the vct-challengers league. It ensures consistency and clarity when handling data across different files.",
+        "fields": {
+            "league": {
+                "description": "The name of the esports league, in this case, 'vct-challengers'. This field helps identify the context of the data."
+            },
+            "year": {
+                "description": "The year associated with the data in the file. This field is crucial for temporal context and helps differentiate between data from different seasons."
+            },
+            "file_type": {
+                "description": "The type of data contained in the file, such as 'tournaments', 'teams', 'players', 'mapping_data', or 'leagues'. This field provides insight into the kind of entities the data represents."
+            },
+            "description": {
+                "description": "A brief overview of the contents and purpose of the file. This field is important for understanding what kind of information can be found within the file and how it may relate to other files."
+            }
+        },
+        "usage": {
+            "description": "This metadata structure is intended for use in systems that process or analyze esports data. It aids in the correct interpretation of the data files and facilitates the connection of related data across different JSON files."
+        }
+    }
+}
+
+
+### JSON File: mapping_data.json
+
+- **Description**: Contains mappings for game identifiers, tournament associations, and team/participant relationships.
+
+- **Fields**:
+  - **platformGameId**: 
+    - **Type**: String
+    - **Description**: Unique identifier for the game on the platform, used to reference specific game instances.
+    - **Connections**: Can be linked to game-related events or details.
+
+  - **esportsGameId**: 
+    - **Type**: String
+    - **Description**: Unique identifier for the esports game within the context of the esports system.
+    - **Connections**: May relate to specific game statistics or tournament details.
+
+  - **tournamentId**: 
+    - **Type**: String
+    - **Description**: Identifier for the tournament in which the game is played.
+    - **Connections**: Links to **id** in **tournaments.json**, providing context for the tournament associated with the games.
+
+  - **teamMapping**: 
+    - **Type**: Object
+    - **Description**: A mapping of team identifiers to their respective unique IDs.
+    - **Structure**: 
+      - **Key**: String (team identifier)
+      - **Value**: String (team's unique ID in the database)
+    - **Connections**: Helps connect team identifiers from different contexts to their full data in **teams.json**.
+
+  - **participantMapping**: 
+    - **Type**: Object
+    - **Description**: A mapping of participant identifiers to their unique IDs.
+    - **Structure**: 
+      - **Key**: String (participant identifier)
+      - **Value**: String (participant's unique ID in the database)
+    - **Connections**: Links participant identifiers to player records in **players.json**.
+
+---
+
+## Connection Guidance
+- Use **tournamentId** to connect mapping data to tournaments in **tournaments.json** using the tournament's **id**.
+- Utilize **teamMapping** and **participantMapping** to connect team and player identifiers to their respective records in **teams.json** and **players.json**.
+
+---
+
+This metadata will assist the LLM in understanding the structure and connections of the **mapping_data.json** file, enabling it to make informed decisions when processing game mappings and associated data.
