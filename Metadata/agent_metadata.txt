@@ -1,0 +1,983 @@
+﻿{
+  "agents": [
+    {
+      "agent_name": "Jett",
+      "role": "Duelist",
+      "abilities": {
+        "ability_1": {
+          "name": "Cloudburst",
+          "description": "Throws a smoke that obscures vision.",
+          "effects": "Blocks vision in a small area."
+        },
+        "ability_2": {
+          "name": "Updraft",
+          "description": "Propels Jett upward.",
+          "effects": "Allows vertical repositioning."
+        },
+        "ability_3": {
+          "name": "Tailwind",
+          "description": "Dashes forward quickly.",
+          "effects": "Increases mobility."
+        },
+        "ultimate": {
+          "name": "Blade Storm",
+          "description": "Throws accurate throwing knives.",
+          "effects": "Deals high damage with accuracy."
+        }
+      },
+      "strengths": ["High mobility", "Aggressive playstyle"],
+      "weaknesses": ["Limited defensive utility"],
+      "associated_maps": ["Ascent", "Split"],
+      "release_date": "2020-06-02"
+    },
+    {
+      "agent_name": "Brimstone",
+      "role": "Controller",
+      "abilities": {
+        "ability_1": {
+          "name": "Sky Smoke",
+          "description": "Deploys smokes at specific locations on the map.",
+          "effects": "Blocks vision in key areas."
+        },
+        "ability_2": {
+          "name": "Stim Beacon",
+          "description": "Deploys a beacon that grants increased fire rate.",
+          "effects": "Increases team fire rate within range."
+        },
+        "ability_3": {
+          "name": "Incendiary",
+          "description": "Fires a molotov grenade.",
+          "effects": "Deals damage in an area."
+        },
+        "ultimate": {
+          "name": "Orbital Strike",
+          "description": "Fires a powerful laser in a large area.",
+          "effects": "Deals massive damage over time."
+        }
+      },
+      "strengths": ["Strong area control", "Good for site defense"],
+      "weaknesses": ["Limited mobility"],
+      "associated_maps": ["Bind", "Haven"],
+      "release_date": "2020-06-02"
+    },
+    {
+  "agent_name": "Phoenix",
+  "role": "Duelist",
+  "abilities": {
+    "ability_1": {
+      "name": "Blaze",
+      "description": "Cast a flame wall that blocks vision and damages anyone passing through it. You can bend the wall when casting by turning while holding fire.",
+      "effects": "Blocks vision, and anyone passing through takes damage. Heals Phoenix if he passes through."
+    },
+    "ability_2": {
+      "name": "Curveball",
+      "description": "Throw a flare orb that curves, blinding all who look at it. Left click curves it left, right click curves it right.",
+      "effects": "Temporarily blinds enemies looking in the direction of the flare."
+    },
+    "ability_3": {
+      "name": "Hot Hands",
+      "description": "Throw a fireball that explodes after a delay or upon impact, creating a lingering fire zone that damages enemies.",
+      "effects": "Creates a zone of fire that deals damage to enemies and heals Phoenix."
+    },
+    "ultimate": {
+      "name": "Run It Back",
+      "description": "Mark your current location. If you die during the ability's duration, or when the ability’s timer expires, you’ll be reborn at the marked location with full health.",
+      "effects": "Grants Phoenix a second life during the ability's duration, allowing him to play aggressively without the risk of permanent death."
+    }
+  },
+  "background_story": "Phoenix hails from the United Kingdom, and his fiery abilities match his hot-headed and aggressive personality. He excels in taking on duels and healing himself through his flames, making him a dangerous agent in the right hands.",
+  "strengths": [
+    "Self-healing abilities",
+    "Strong in duels and aggressive plays",
+    "Ultimate allows risky but rewarding plays"
+  ],
+  "weaknesses": [
+    "Abilities have limited range",
+    "Vulnerable to long-range engagements",
+    "Requires smart use of his self-healing abilities to stay alive"
+  ],
+  "associated_maps": ["Haven", "Split"],
+  "release_date": "2020-06-02"
+},
+{
+  "agent_name": "Sage",
+  "role": "Sentinel",
+  "abilities": {
+    "ability_1": {
+      "name": "Barrier Orb",
+      "description": "Equip a barrier orb. Fire to place a solid wall. Alternate fire rotates the targeter.",
+      "effects": "Creates a strong, solid wall that blocks movement and vision."
+    },
+    "ability_2": {
+      "name": "Slow Orb",
+      "description": "Cast an orb that breaks into a slowing field upon impact with the ground.",
+      "effects": "Creates a field that slows all players moving through it."
+    },
+    "ability_3": {
+      "name": "Healing Orb",
+      "description": "Equip a healing orb. Fire with your crosshairs over a damaged ally to activate a heal over time. Alternate fire self-heals.",
+      "effects": "Heals teammates or Sage herself over time."
+    },
+    "ultimate": {
+      "name": "Resurrection",
+      "description": "Target a friendly corpse. After a brief channel, revive them with full health.",
+      "effects": "Revives a fallen teammate with full health, bringing them back into the game."
+    }
+  },
+  "background_story": "Sage is a calm and composed healer hailing from China. As a protector of her team, she has the power to bring allies back from the brink of death, making her indispensable in critical moments.",
+  "strengths": [
+    "Strong team support through healing and resurrection",
+    "Excellent control of areas with her Barrier Orb and Slow Orb",
+    "Game-changing ultimate that can turn the tide of a match"
+  ],
+  "weaknesses": [
+    "Limited offensive capabilities",
+    "Relies heavily on teammates to capitalize on her utility",
+    "Abilities can be countered by fast and aggressive enemies"
+  ],
+  "associated_maps": ["Split", "Icebox"],
+  "release_date": "2020-06-02"
+},
+{
+  "agent_name": "Sova",
+  "role": "Initiator",
+  "abilities": {
+    "ability_1": {
+      "name": "Owl Drone",
+      "description": "Deploy a pilotable drone that can fire a dart to reveal enemies who are hit.",
+      "effects": "Allows Sova to scout areas and reveal enemy locations by tagging them with the drone’s dart."
+    },
+    "ability_2": {
+      "name": "Shock Bolt",
+      "description": "Fire an explosive bolt that emits a damaging pulse of static energy upon impact.",
+      "effects": "Deals damage in a small radius upon impact."
+    },
+    "ability_3": {
+      "name": "Recon Bolt",
+      "description": "Fire a bolt that deploys a sonar emitter, revealing nearby enemies who are within its line of sight. Can be destroyed.",
+      "effects": "Reveals enemies within its line of sight, making it an excellent scouting tool."
+    },
+    "ultimate": {
+      "name": "Hunter's Fury",
+      "description": "Fire up to three deadly energy blasts that spear across the entire map. Each hit enemy takes heavy damage and is revealed.",
+      "effects": "Fires energy blasts that deal heavy damage and reveal hit enemies across the map."
+    }
+  },
+  "background_story": "Sova, hailing from Russia, is a relentless hunter who excels at tracking down enemies and eliminating them with precision. His abilities focus on gathering intelligence and neutralizing enemies from a distance, making him an essential asset for initiating engagements and scouting key areas.",
+  "strengths": [
+    "Excellent scouting and information-gathering abilities",
+    "Strong long-range and map-wide control with his ultimate",
+    "Can reveal enemy locations and disrupt pushes"
+  ],
+  "weaknesses": [
+    "Abilities can be countered by fast or well-hidden enemies",
+    "Requires strong map knowledge to use effectively",
+    "Limited close-range combat abilities"
+  ],
+  "associated_maps": ["Ascent", "Bind"],
+  "release_date": "2020-06-02"
+},
+{
+  "agent_name": "Viper",
+  "role": "Controller",
+  "abilities": {
+    "ability_1": {
+      "name": "Snake Bite",
+      "description": "Fire a projectile that explodes into a pool of acid that damages enemies.",
+      "effects": "Creates a pool of acid that deals damage over time to enemies standing in it."
+    },
+    "ability_2": {
+      "name": "Poison Cloud",
+      "description": "Throw a gas emitter that you can reactivate to create a toxic gas cloud at the cost of fuel. The emitter can be picked up and redeployed.",
+      "effects": "Creates a vision-blocking cloud of gas that depletes Viper’s fuel."
+    },
+    "ability_3": {
+      "name": "Toxic Screen",
+      "description": "Deploy a long line of gas emitters that you can reactivate to create a tall wall of toxic gas at the cost of fuel.",
+      "effects": "Creates a long wall of gas that blocks vision and damages enemies passing through it."
+    },
+    "ultimate": {
+      "name": "Viper's Pit",
+      "description": "Create a large cloud of toxic gas in a wide area that lasts as long as Viper stays inside the cloud.",
+      "effects": "Creates a large area of toxic gas that heavily reduces enemies' vision and decays their health over time."
+    }
+  },
+  "background_story": "Viper is a chemist hailing from the United States, known for her toxic arsenal and calculated tactics. With her abilities, she controls the battlefield by poisoning enemies, obscuring vision, and denying areas to her opponents. She thrives in situations where she can manipulate the environment to her advantage.",
+  "strengths": [
+    "Strong area control with toxic abilities",
+    "Great for denying enemy movement and blocking vision",
+    "Ultimate can single-handedly control an area and isolate enemies"
+  ],
+  "weaknesses": [
+    "Relies on managing fuel for Poison Cloud and Toxic Screen",
+    "Limited offensive potential without her toxins active",
+    "Abilities can be less effective in open areas"
+  ],
+  "associated_maps": ["Bind", "Icebox"],
+  "release_date": "2020-06-02"
+},
+{
+  "agent_name": "Cypher",
+  "role": "Sentinel",
+  "abilities": {
+    "ability_1": {
+      "name": "Trapwire",
+      "description": "Place a covert tripwire between two walls. Enemies who cross it are restrained and revealed for a short time. If not destroyed, the trap activates to daze the trapped victim.",
+      "effects": "Reveals and dazes enemies who cross the tripwire if it is not destroyed."
+    },
+    "ability_2": {
+      "name": "Cyber Cage",
+      "description": "Throw out a remote activation trap. Reactivate to create a cage that slows enemies who pass through it.",
+      "effects": "Creates a slowing zone that can be remotely activated to trap enemies."
+    },
+    "ability_3": {
+      "name": "Spycam",
+      "description": "Place a remote camera. After placing, reactivate to view the feed. Left click while in camera mode to fire a tracking dart.",
+      "effects": "Allows Cypher to monitor areas remotely and tag enemies with a tracking dart."
+    },
+    "ultimate": {
+      "name": "Neural Theft",
+      "description": "Extract information from a dead enemy, revealing the location of all living enemies once.",
+      "effects": "Reveals the location of all enemies on the map for a short time."
+    }
+  },
+  "background_story": "Cypher is a master of surveillance and traps, hailing from Morocco. Known for his ability to gather intel and control the battlefield from the shadows, Cypher excels at locking down areas and tracking enemy movements. His gadgets allow him to outsmart opponents and protect his team from unexpected flanks.",
+  "strengths": [
+    "Excellent for gathering intelligence and revealing enemy positions",
+    "Strong area control and anti-flank capabilities",
+    "Ultimate can reveal all enemies on the map, providing vital information"
+  ],
+  "weaknesses": [
+    "Relies heavily on gadgets for effectiveness",
+    "Trapwire and Spycam can be destroyed by aware enemies",
+    "Less useful in direct combat scenarios"
+  ],
+  "associated_maps": ["Split", "Bind"],
+  "release_date": "2020-06-02"
+},
+{
+  "agent_name": "Reyna",
+  "role": "Duelist",
+  "abilities": {
+    "ability_1": {
+      "name": "Leer",
+      "description": "Send out an ethereal, destructible orb that nearsights all enemies it looks at.",
+      "effects": "Enemies hit by the orb have their vision severely limited (nearsighted). The orb can be destroyed by enemies."
+    },
+    "ability_2": {
+      "name": "Devour",
+      "description": "Enemies killed by Reyna leave behind Soul Orbs that last for 3 seconds. Instantly consume a nearby orb to rapidly heal, regenerating health over time. This ability will automatically cast if Reyna is damaged.",
+      "effects": "Heals Reyna after killing an enemy, consuming a Soul Orb."
+    },
+    "ability_3": {
+      "name": "Dismiss",
+      "description": "Consume a Soul Orb to become intangible for a short duration.",
+      "effects": "Allows Reyna to become invulnerable and untouchable for a brief time after consuming a Soul Orb."
+    },
+    "ultimate": {
+      "name": "Empress",
+      "description": "Enter a frenzy, rapidly firing and healing after kills. Increases the fire rate of Reyna's weapons and automatically activates Devour after every kill.",
+      "effects": "Grants increased fire rate and automatic healing on kills. Also allows the use of Dismiss without consuming Soul Orbs."
+    }
+  },
+  "background_story": "Reyna hails from Mexico and thrives on dominating opponents. Her powers come from her ability to consume the souls of those she defeats, healing herself or becoming invulnerable. She is the embodiment of a solo duelist, excelling in aggressive and self-sustained combat.",
+  "strengths": [
+    "Strong self-sustain through healing after kills",
+    "Can become invulnerable with Dismiss, allowing quick escapes or repositions",
+    "Ultimate allows rapid aggression and enhanced firepower"
+  ],
+  "weaknesses": [
+    "Relies heavily on getting kills to activate her abilities",
+    "Weaker in team support compared to other Duelists",
+    "Limited utility without kills, making her riskier in certain team compositions"
+  ],
+  "associated_maps": ["Ascent", "Bind"],
+  "release_date": "2020-06-02"
+},
+{
+  "agent_name": "Killjoy",
+  "role": "Sentinel",
+  "abilities": {
+    "ability_1": {
+      "name": "Nanoswarm",
+      "description": "Throw a grenade that deploys a swarm of nanobots which damage enemies.",
+      "effects": "Deploys a swarm of nanobots that deal damage over time to enemies caught in the area of effect."
+    },
+    "ability_2": {
+      "name": "Alarmbot",
+      "description": "Deploy a bot that hunts down enemies in range. Upon reaching its target, it explodes, applying a debuff that increases damage taken.",
+      "effects": "Hunts down enemies and applies a debuff, making them take increased damage."
+    },
+    "ability_3": {
+      "name": "Turret",
+      "description": "Deploy a turret that fires at enemies in a 180-degree cone.",
+      "effects": "Fires at enemies within its range, providing area control and dealing light damage."
+    },
+    "ultimate": {
+      "name": "Lockdown",
+      "description": "Deploy the Lockdown device. After a long wind-up, the device detains all enemies caught in the radius.",
+      "effects": "Detains enemies in a large radius after a wind-up, rendering them immobile and vulnerable to attack."
+    }
+  },
+  "background_story": "Killjoy, a German tech expert, is known for her brilliant inventions that allow her to dominate the battlefield. Her devices provide area control and intelligence, and her ultimate can lock down entire enemy teams, making them sitting ducks for her team to clean up.",
+  "strengths": [
+    "Strong area control with turrets and Alarmbots",
+    "Nanoswarm provides significant area denial",
+    "Ultimate can disrupt entire teams and force enemies into bad positions"
+  ],
+  "weaknesses": [
+    "Her devices can be destroyed, reducing her effectiveness",
+    "Turret deals low damage, more useful for intel than offense",
+    "Ultimate has a long wind-up, giving enemies time to react"
+  ],
+  "associated_maps": ["Ascent", "Haven"],
+  "release_date": "2020-08-04"
+},
+{
+  "agent_name": "Breach",
+  "role": "Initiator",
+  "abilities": {
+    "ability_1": {
+      "name": "Aftershock",
+      "description": "Fire a fusion charge that explodes through walls, dealing high damage to anyone caught in the blast.",
+      "effects": "Explodes through obstacles, dealing damage to enemies hiding behind walls or in cover."
+    },
+    "ability_2": {
+      "name": "Flashpoint",
+      "description": "Fire a blinding charge through a wall. The charge detonates to blind all players looking at it.",
+      "effects": "Blinds all enemies who are in the line of sight of the blast, even through walls."
+    },
+    "ability_3": {
+      "name": "Fault Line",
+      "description": "Equip a seismic blast. Hold fire to increase the distance. Release to set off a quake, dazing all players in its zone.",
+      "effects": "Creates a long seismic blast that dazes enemies caught in its zone, reducing their effectiveness in combat."
+    },
+    "ultimate": {
+      "name": "Rolling Thunder",
+      "description": "Send a cascading quake through all terrain in a large cone. The quake dazes and knocks up anyone caught in it.",
+      "effects": "Creates a wide seismic wave that dazes and disorients enemies, knocking them into the air."
+    }
+  },
+  "background_story": "Breach, a bionic Swede, specializes in disrupting entrenched enemy positions. His abilities are designed to flush out defenders and create chaos, making him a powerful force when pushing into contested areas. His powerful blasts can penetrate walls, and his ultimate can disorient entire teams.",
+  "strengths": [
+    "Strong crowd control and disruption abilities",
+    "Can clear out enemy positions through walls",
+    "Ultimate is game-changing, especially for initiating team fights"
+  ],
+  "weaknesses": [
+    "Abilities can also affect teammates if not used carefully",
+    "Requires good coordination with the team to maximize impact",
+    "His abilities need precise timing and positioning"
+  ],
+  "associated_maps": ["Bind", "Split"],
+  "release_date": "2020-06-02"
+},
+{
+  "agent_name": "Omen",
+  "role": "Controller",
+  "abilities": {
+    "ability_1": {
+      "name": "Shrouded Step",
+      "description": "Instantly teleport a short distance to a nearby location.",
+      "effects": "Allows Omen to teleport a short distance, repositioning quickly and stealthily."
+    },
+    "ability_2": {
+      "name": "Paranoia",
+      "description": "Send out an ethereal shadow in a straight line, Nearsighting, deafening, and briefly blinding all players it touches.",
+      "effects": "Nearsights and briefly blinds enemies in a straight line, reducing their vision and hearing."
+    },
+    "ability_3": {
+      "name": "Dark Cover",
+      "description": "Throw out a stealthed ethereal orb that bursts into a sphere of shadow, obscuring vision. Can be charged to travel further.",
+      "effects": "Creates a smoke orb that blocks vision for a period of time. The distance of the throw can be adjusted."
+    },
+    "ultimate": {
+      "name": "From the Shadows",
+      "description": "Select anywhere on the map to teleport and reform. If killed during the teleport, you will return to your original location.",
+      "effects": "Allows Omen to teleport to any location on the map. If he is killed during the teleportation process, he returns to his original position."
+    }
+  },
+  "background_story": "Omen is a mysterious and shadowy figure with unknown origins. He thrives in disorienting his enemies and manipulating the battlefield by using his teleportation and stealth abilities. Omen excels at creating chaos and confusion, allowing his team to capitalize on the disruption.",
+  "strengths": [
+    "Strong area control with his smokes",
+    "High mobility with short-distance and global teleportation",
+    "Ability to disorient and blind enemies, creating confusion"
+  ],
+  "weaknesses": [
+    "Relies heavily on stealth and outplaying opponents",
+    "Teleportation abilities can be predictable if used without care",
+    "Lacks strong direct offensive abilities"
+  ],
+  "associated_maps": ["Bind", "Split"],
+  "release_date": "2020-06-02"
+},
+{
+  "agent_name": "Raze",
+  "role": "Duelist",
+  "abilities": {
+    "ability_1": {
+      "name": "Boom Bot",
+      "description": "Deploy a Boom Bot that travels in a straight line, bouncing off walls. The bot locks onto enemies in its frontal cone and explodes on contact, dealing heavy damage.",
+      "effects": "The bot travels forward and locks onto enemies, exploding on contact to deal heavy damage."
+    },
+    "ability_2": {
+      "name": "Blast Pack",
+      "description": "Instantly throw a Blast Pack that sticks to surfaces. Reactivate to detonate, damaging and displacing anything hit.",
+      "effects": "The Blast Pack sticks to surfaces and can be remotely detonated to deal damage and knock enemies or Raze herself back."
+    },
+    "ability_3": {
+      "name": "Paint Shells",
+      "description": "Throw a cluster grenade that deals damage and explodes into smaller grenades, each dealing further damage.",
+      "effects": "Creates an initial explosion followed by several smaller explosions, dealing area damage."
+    },
+    "ultimate": {
+      "name": "Showstopper",
+      "description": "Fire a massive rocket launcher that deals huge area damage on contact.",
+      "effects": "Fires a rocket that deals devastating area damage to anyone in its blast radius."
+    }
+  },
+  "background_story": "Raze, hailing from Brazil, is known for her bold and explosive personality. She specializes in using explosives to clear out enemies and create chaos on the battlefield. Her abilities are designed to deal massive damage and force opponents out of hiding, making her an aggressive force to be reckoned with.",
+  "strengths": [
+    "High area damage with all abilities",
+    "Can displace enemies and force them out of cover",
+    "Ultimate can single-handedly wipe out entire teams"
+  ],
+  "weaknesses": [
+    "Limited utility outside of dealing damage",
+    "Abilities can be predictable if overused",
+    "Requires careful positioning to avoid self-damage from her explosives"
+  ],
+  "associated_maps": ["Bind", "Split"],
+  "release_date": "2020-06-02"
+},
+{
+  "agent_name": "Skye",
+  "role": "Initiator",
+  "abilities": {
+    "ability_1": {
+      "name": "Regrowth",
+      "description": "Channel to heal allies in range and line of sight. Skye cannot heal herself.",
+      "effects": "Heals all nearby teammates within range and line of sight over time, but Skye cannot heal herself."
+    },
+    "ability_2": {
+      "name": "Trailblazer",
+      "description": "Equip and send out a Tasmanian tiger trinket. Control the predator to lunge forward, exploding in a concussive blast and damaging enemies.",
+      "effects": "Allows Skye to control a Tasmanian tiger that can lunge at enemies, concussing and damaging them on impact."
+    },
+    "ability_3": {
+      "name": "Guiding Light",
+      "description": "Equip a hawk trinket. Send it out to fly forward. Reuse the ability to transform the hawk into a flash that blinds enemies.",
+      "effects": "The hawk blinds enemies in its path when activated, and Skye can control its flight path."
+    },
+    "ultimate": {
+      "name": "Seekers",
+      "description": "Send out three seekers to track down the three nearest enemies. If a seeker reaches its target, it nearsights them.",
+      "effects": "The seekers travel to the nearest enemies and nearsight them upon contact, making it easier for Skye's team to locate and engage them."
+    }
+  },
+  "background_story": "Hailing from Australia, Skye is a nature warrior with healing and recon abilities. She uses her bond with wildlife to track down enemies and provide support to her teammates. Her abilities are ideal for scouting and initiating combat, and she can heal her allies in critical situations.",
+  "strengths": [
+    "Can heal teammates, providing strong support in prolonged engagements",
+    "Recon abilities that help track and locate enemies",
+    "Good initiation and crowd control with Trailblazer and Guiding Light"
+  ],
+  "weaknesses": [
+    "Cannot heal herself, only teammates",
+    "Abilities require good positioning and teamwork to maximize effectiveness",
+    "Limited offensive power without her team"
+  ],
+  "associated_maps": ["Haven", "Bind"],
+  "release_date": "2020-10-27"
+},
+{
+  "agent_name": "Yoru",
+  "role": "Duelist",
+  "abilities": {
+    "ability_1": {
+      "name": "Fakeout",
+      "description": "Equip an echo that mimics footsteps when activated. Fire to send the echo forward, alt-fire to place the echo. Activate to send it in a direction, deceiving enemies.",
+      "effects": "Creates fake footsteps that can be used to deceive enemies about Yoru's position."
+    },
+    "ability_2": {
+      "name": "Blindside",
+      "description": "Throw a fragment that bounces off surfaces before activating. When it detonates, it blinds all players looking at it.",
+      "effects": "Blinds enemies in the line of sight after bouncing off a surface."
+    },
+    "ability_3": {
+      "name": "Gatecrash",
+      "description": "Equip to harness a tethered fragment of Yoru's dimension. Fire to send the tether out, alt-fire to place a stationary tether. Activate to teleport to the tether's location.",
+      "effects": "Allows Yoru to teleport to a tether's location after sending it out or placing it."
+    },
+    "ultimate": {
+      "name": "Dimensional Drift",
+      "description": "Equip a mask that allows Yoru to see between dimensions. Fire to drift into Yoru's dimension, making him invisible and invulnerable to enemies.",
+      "effects": "Yoru becomes invisible and invulnerable for a short period, able to scout enemies without being detected."
+    }
+  },
+  "background_story": "Yoru, hailing from Japan, uses his mastery of deception and stealth to create confusion on the battlefield. With his ability to manipulate dimensions and create fake footsteps, Yoru excels at outwitting opponents and executing flanking maneuvers. His skills make him a tricky and unpredictable Duelist.",
+  "strengths": [
+    "High mobility and ability to confuse enemies with decoys and teleportation",
+    "Invisibility and invulnerability with his ultimate allow him to gather intel safely",
+    "Great at flanking and catching enemies off guard"
+  ],
+  "weaknesses": [
+    "Relies heavily on deception; abilities can be less effective against aware opponents",
+    "Requires good map knowledge and timing to maximize his teleportation and fakeouts",
+    "Limited direct combat utility compared to other Duelists"
+  ],
+  "associated_maps": ["Bind", "Icebox"],
+  "release_date": "2021-01-12"
+},
+{
+  "agent_name": "Astra",
+  "role": "Controller",
+  "abilities": {
+    "ability_1": {
+      "name": "Gravity Well",
+      "description": "Activate a star to form a Gravity Well. Players in the area are pulled toward the center before it explodes, applying a debuff to all players still trapped inside.",
+      "effects": "Pulls enemies towards the center and applies a debuff, making them vulnerable."
+    },
+    "ability_2": {
+      "name": "Nova Pulse",
+      "description": "Activate a star to detonate a Nova Pulse. The Nova Pulse charges briefly then strikes, concussing all players in its area.",
+      "effects": "Concusses all enemies within the area of effect after a short charge time."
+    },
+    "ability_3": {
+      "name": "Nebula / Dissipate",
+      "description": "Activate a star to transform it into a Nebula (smoke). Use Dissipate on a star to recall it, briefly leaving a fake Nebula at the star's location before returning.",
+      "effects": "Creates a smoke that blocks vision. Dissipate allows Astra to fake a smoke by recalling the star and creating a brief decoy smoke."
+    },
+    "ultimate": {
+      "name": "Astral Form / Cosmic Divide",
+      "description": "Activate to enter Astral Form where you can place stars. When Cosmic Divide is charged, use it to create a large wall that blocks bullets and heavily dampens audio.",
+      "effects": "Creates a massive wall that blocks bullets and muffles sounds across the map, providing strategic control of areas."
+    }
+  },
+  "background_story": "Hailing from Ghana, Astra is a cosmic-powered Controller who uses her mastery of the stars to reshape the battlefield to her team's advantage. Her ability to place stars across the map and activate them from her Astral Form makes her a unique and versatile agent, capable of controlling key areas and disorienting enemies.",
+  "strengths": [
+    "Incredible map-wide control with stars that can be activated for various effects",
+    "Strong utility for crowd control and zoning enemies",
+    "Ultimate can block entire areas and silence gunfire, providing tactical advantages"
+  ],
+  "weaknesses": [
+    "Requires a deep understanding of map control and timing",
+    "Stars need to be placed in advance, making her abilities less reactive",
+    "Ultimate can be countered by opponents who position themselves effectively"
+  ],
+  "associated_maps": ["Split", "Breeze"],
+  "release_date": "2021-03-02"
+},
+{
+  "agent_name": "KAY/O",
+  "role": "Initiator",
+  "abilities": {
+    "ability_1": {
+      "name": "FRAG/ment",
+      "description": "Throw an explosive fragment that sticks to the floor and explodes multiple times, dealing damage with each explosion.",
+      "effects": "Deals damage over time in a small area, with each explosion damaging enemies in the radius."
+    },
+    "ability_2": {
+      "name": "FLASH/drive",
+      "description": "Throw a flash grenade that explodes after a short fuse, blinding all players in line of sight.",
+      "effects": "Blinds enemies in the line of sight of the flash explosion."
+    },
+    "ability_3": {
+      "name": "ZERO/point",
+      "description": "Throw a suppression blade that sticks to surfaces. The blade suppresses all enemies in the radius, disabling their abilities for a short time.",
+      "effects": "Disables enemy abilities for a short time, forcing them to rely on weapons only."
+    },
+    "ultimate": {
+      "name": "NULL/cmd",
+      "description": "Overload with polarized radianite energy, empowering KAY/O and emitting pulses that suppress enemies. If killed, KAY/O can be revived by allies while in the downed state.",
+      "effects": "Emits pulses that suppress enemies in the area, disabling their abilities. KAY/O can be revived if downed while his ultimate is active."
+    }
+  },
+  "background_story": "KAY/O is a robot built for combat, designed to neutralize Radiants by suppressing their abilities. His straightforward and mechanical approach to warfare makes him highly effective in disrupting enemies and pushing forward with his team. He relies on suppressing opponents and using his combat skills to win engagements.",
+  "strengths": [
+    "Can suppress enemy abilities, reducing their effectiveness in combat",
+    "Strong initiation tools with his flash grenade and suppression blade",
+    "Ultimate allows for suppression in a wide area and gives KAY/O a second chance if downed"
+  ],
+  "weaknesses": [
+    "His suppression abilities can be avoided with careful positioning",
+    "Relies heavily on timing and team coordination to maximize his utility",
+    "Limited crowd control outside of suppression"
+  ],
+  "associated_maps": ["Bind", "Ascent"],
+  "release_date": "2021-06-22"
+},
+{
+  "agent_name": "Chamber",
+  "role": "Sentinel",
+  "abilities": {
+    "ability_1": {
+      "name": "Trademark",
+      "description": "Place a trap that scans for enemies. When a visible enemy comes in range, the trap counts down and destabilizes the terrain around them, creating a lingering field that slows players caught inside.",
+      "effects": "Slows enemies in the area by creating a slowing field after detecting them."
+    },
+    "ability_2": {
+      "name": "Headhunter",
+      "description": "Activate to equip a heavy pistol. Fire with primary aim for normal shots, or aim down sights for increased accuracy.",
+      "effects": "A powerful pistol that can be aimed down sights for more accurate shots."
+    },
+    "ability_3": {
+      "name": "Rendezvous",
+      "description": "Place two teleport anchors. While on the ground and in range of an anchor, reactivate to quickly teleport to the other anchor.",
+      "effects": "Allows Chamber to teleport between two anchors, providing high mobility and repositioning potential."
+    },
+    "ultimate": {
+      "name": "Tour de Force",
+      "description": "Activate to summon a powerful custom sniper rifle that will kill an enemy with a direct hit. Killing an enemy creates a slowing field around their body.",
+      "effects": "Chamber summons a sniper rifle that kills with one hit and creates a slowing field after a kill."
+    }
+  },
+  "background_story": "Chamber, a French weapons designer, is a suave and calculating agent who uses his custom arsenal to eliminate targets with precision. His abilities are designed to combine high-damage weapons with strategic repositioning, allowing him to control engagements and take down enemies from a distance. Chamber thrives on his mobility and lethality, making him a deadly force on the battlefield.",
+  "strengths": [
+    "High mobility with his teleportation ability, allowing for quick repositioning",
+    "Powerful long-range combat with his custom sniper rifle and Headhunter pistol",
+    "Strong area control with his Trademark trap and the slowing fields it creates"
+  ],
+  "weaknesses": [
+    "Relies on positioning and precise aim to maximize effectiveness",
+    "Less utility for direct team support compared to other Sentinels",
+    "Abilities are focused on individual combat, making him less effective in team-based support roles"
+  ],
+  "associated_maps": ["Ascent", "Breeze"],
+  "release_date": "2021-11-16"
+},
+{
+  "agent_name": "Neon",
+  "role": "Duelist",
+  "abilities": {
+    "ability_1": {
+      "name": "High Gear",
+      "description": "Instantly channel Neon’s power for increased speed. When charged, use Alt Fire to trigger an electric slide. Slide charge resets after two kills.",
+      "effects": "Neon gains a significant speed boost and can slide to reposition quickly. Slide resets after two kills."
+    },
+    "ability_2": {
+      "name": "Relay Bolt",
+      "description": "Fire an energy bolt that bounces once. Upon hitting each surface, the bolt electrifies the ground below with a concussive blast.",
+      "effects": "Creates a concussive blast on two surfaces, stunning enemies in its area."
+    },
+    "ability_3": {
+      "name": "Fast Lane",
+      "description": "Fire two energy lines forward on the ground, which extend a short distance or until they hit a surface. The lines rise into walls of static electricity that block vision and damage enemies passing through them.",
+      "effects": "Creates walls of electricity that block vision and damage enemies who pass through them."
+    },
+    "ultimate": {
+      "name": "Overdrive",
+      "description": "Unleash Neon’s full power and speed for a short duration. Fire to channel the power into a deadly lightning beam with high movement accuracy.",
+      "effects": "Neon gains increased speed and can fire a lightning beam that deals damage with precision even while moving."
+    }
+  },
+  "background_story": "Neon, a fast-paced agent from the Philippines, uses her bioelectric abilities to outmaneuver opponents. Her raw speed and agility make her a powerful force in combat, allowing her to quickly close the distance on enemies or reposition herself. She thrives on high energy, using her powers to overwhelm enemies with speed and precision.",
+  "strengths": [
+    "Extremely high mobility with High Gear and her slide mechanic",
+    "Strong crowd control and zone denial with her Relay Bolt and Fast Lane",
+    "Overdrive ultimate allows for precise movement and high damage output while moving at high speeds"
+  ],
+  "weaknesses": [
+    "Relies heavily on her speed and agility; poor positioning can be punished",
+    "Her Fast Lane walls can block vision for teammates as well",
+    "Requires aggressive playstyle, making her vulnerable in long-range engagements"
+  ],
+  "associated_maps": ["Fracture", "Haven"],
+  "release_date": "2022-01-11"
+},
+{
+  "agent_name": "Fade",
+  "role": "Initiator",
+  "abilities": {
+    "ability_1": {
+      "name": "Prowler",
+      "description": "Send out a creature that travels in a straight line. It locks onto any enemies or trails in its path and nearsights them if it reaches them.",
+      "effects": "The creature nearsights enemies, reducing their vision range for a short duration if it catches them."
+    },
+    "ability_2": {
+      "name": "Seize",
+      "description": "Equip an orb of nightmare ink. Fire to throw it, the orb explodes and tethers nearby enemies to its location, trapping them in place and deafening them.",
+      "effects": "Tethers enemies in a radius, preventing them from escaping and deafens them for a short duration."
+    },
+    "ability_3": {
+      "name": "Haunt",
+      "description": "Equip a nightmare entity. Fire to throw it, and it reveals the location of enemies caught in its line of sight. Enemies can destroy the entity.",
+      "effects": "Reveals enemy locations in its line of sight. The entity can be destroyed by enemies."
+    },
+    "ultimate": {
+      "name": "Nightfall",
+      "description": "Send out a wave of nightmare energy that can travel through walls. The energy creates trails to enemies and deafens, decays, and nearsights them.",
+      "effects": "Deafens, decays, and nearsights enemies in its path while leaving trails that lead directly to them."
+    }
+  },
+  "background_story": "Fade, an agent from Turkey, is a master of fear and nightmares. Using her abilities to track down enemies and make them vulnerable, she can disorient entire teams with waves of nightmare energy. Fade excels in locating and trapping enemies, making her an effective Initiator capable of setting up plays for her team.",
+  "strengths": [
+    "Can locate and trap enemies, making it easy for her team to capitalize on vulnerable targets",
+    "Strong area control with her tethering and nearsighting abilities",
+    "Ultimate can disrupt entire teams, leaving them vulnerable and exposed"
+  ],
+  "weaknesses": [
+    "Abilities are dependent on line of sight and can be countered by well-positioned enemies",
+    "Requires coordination with her team to maximize the impact of her abilities",
+    "Tethering effects can be avoided with quick reactions or positioning"
+  ],
+  "associated_maps": ["Ascent", "Icebox"],
+  "release_date": "2022-04-27"
+},
+{
+  "agent_name": "Harbor",
+  "role": "Controller",
+  "abilities": {
+    "ability_1": {
+      "name": "Cascade",
+      "description": "Send a wall of water rolling forward through terrain. The wall slows players it hits.",
+      "effects": "A moving wall of water that blocks vision and slows enemies passing through it."
+    },
+    "ability_2": {
+      "name": "Cove",
+      "description": "Equip a sphere of shielding water. Fire to throw. The sphere blocks bullets with a watery shield and creates a smoke-like area inside.",
+      "effects": "Creates a water-based shield that blocks bullets and acts like a smoke to obscure vision."
+    },
+    "ability_3": {
+      "name": "High Tide",
+      "description": "Equip a wall of water. Fire to send the water forward along the ground. Hold fire to guide the water in the direction of your crosshair, passing through walls. Players hit are slowed.",
+      "effects": "Creates a controllable water wall that passes through terrain, blocking vision and slowing enemies hit by it."
+    },
+    "ultimate": {
+      "name": "Reckoning",
+      "description": "Equip the full power of your artifact. Fire to summon a geyser pool on the ground. Enemy players in the area are targeted by successive geyser strikes. Players caught within a strike are concussed.",
+      "effects": "Creates a large area where geysers repeatedly strike, concussing enemies caught in them."
+    }
+  },
+  "background_story": "Harbor, an agent from India, wields ancient technology that grants him control over water. As a Controller, he uses water to shape the battlefield by slowing, obscuring vision, and protecting his team. His abilities focus on manipulating water to control engagements, making him a unique and versatile Controller with a balance of offensive and defensive options.",
+  "strengths": [
+    "Strong area control with his water-based abilities that can slow and obscure vision",
+    "Good versatility between blocking vision, protecting teammates, and disabling enemies",
+    "Ultimate can disrupt entire enemy teams, forcing them out of positions"
+  ],
+  "weaknesses": [
+    "Water-based abilities can be predicted and avoided with good positioning",
+    "Limited offensive utility compared to other Controllers",
+    "Requires good coordination to maximize his utility for the team"
+  ],
+  "associated_maps": ["Lotus", "Breeze"],
+  "release_date": "2022-10-18"
+},
+{
+  "agent_name": "Gekko",
+  "role": "Initiator",
+  "abilities": {
+    "ability_1": {
+      "name": "Mosh Pit",
+      "description": "Throw a grenade that duplicates upon landing, creating a large zone that deals damage after a brief delay.",
+      "effects": "Creates a large area of effect that deals damage to enemies caught within it after a short delay."
+    },
+    "ability_2": {
+      "name": "Dizzy",
+      "description": "Send Dizzy soaring into the air. Dizzy charges up and fires plasma blasts at enemies in line of sight, blinding them.",
+      "effects": "Dizzy shoots plasma at enemies, blinding them upon contact."
+    },
+    "ability_3": {
+      "name": "Wingman",
+      "description": "Send Wingman forward to concuss enemies in his path. Wingman can also be used to plant or defuse the Spike if it's equipped.",
+      "effects": "Concusses enemies in its path and can plant or defuse the Spike."
+    },
+    "ultimate": {
+      "name": "Thrash",
+      "description": "Equip Thrash and steer it toward enemies. Upon activation, Thrash leaps forward and explodes, detaining any enemies caught in the blast.",
+      "effects": "Thrash detains enemies in the area of the explosion, rendering them immobile for a short period."
+    }
+  },
+  "background_story": "Gekko, a vibrant and resourceful agent from Los Angeles, commands a group of unique creatures that assist him in battle. His abilities revolve around his loyal companions, who perform various tasks such as blinding, concussing, and even planting the Spike. Gekko's playful demeanor hides his sharp tactical mind, making him an unpredictable Initiator.",
+  "strengths": [
+    "Ability to control the battlefield with his creatures, each providing utility like blinding, concussing, or detaining enemies",
+    "Strong support and versatility, as Wingman can plant or defuse the Spike, giving Gekko's team an edge in objective-based gameplay",
+    "High crowd control with Mosh Pit and Thrash for area denial and immobilization"
+  ],
+  "weaknesses": [
+    "Relies on his creatures to perform tasks, and losing them can limit his utility",
+    "Abilities can be predictable if overused, allowing enemies to counter or avoid them",
+    "Requires strong coordination with his team to maximize the utility of his abilities"
+  ],
+  "associated_maps": ["Fracture", "Haven"],
+  "release_date": "2023-03-07"
+},
+{
+  "agent_name": "Deadlock",
+  "role": "Sentinel",
+  "abilities": {
+    "ability_1": {
+      "name": "GravNet",
+      "description": "Throw a GravNet grenade that forces enemies within its area to crouch and move slowly.",
+      "effects": "Forces enemies caught in the area to crouch and move slowly, limiting their mobility and making them vulnerable."
+    },
+    "ability_2": {
+      "name": "Sonic Sensor",
+      "description": "Deploy a sensor that listens for sounds. When triggered by an enemy making noise (like footsteps or gunfire), it concusses all nearby enemies.",
+      "effects": "Concusses enemies in the area when it detects sound from footsteps or gunfire."
+    },
+    "ability_3": {
+      "name": "Barrier Mesh",
+      "description": "Deploy a barrier that blocks movement. The mesh walls prevent enemies from passing but allow bullets to go through.",
+      "effects": "Creates a mesh barrier that blocks enemy movement but allows bullets to pass through."
+    },
+    "ultimate": {
+      "name": "Annihilation",
+      "description": "Fire a pulse that captures the first enemy hit, encasing them in a cocoon and pulling them along a path toward their death. If the cocooned enemy is not freed in time, they are killed.",
+      "effects": "Encases an enemy and pulls them along a path. If teammates do not free the cocooned enemy, they are eliminated after a short time."
+    }
+  },
+  "background_story": "Deadlock, hailing from Norway, is a tech-savvy agent who excels at locking down areas and controlling enemy movements. Using her advanced technology, Deadlock can immobilize and concuss enemies, forcing them into vulnerable positions. Her ultimate ability allows her to isolate and eliminate enemies, making her a dangerous force on the battlefield.",
+  "strengths": [
+    "Strong area control with abilities that restrict enemy movement and mobility",
+    "Sonic Sensor is excellent for detecting enemy presence and concussing them in key areas",
+    "Ultimate can isolate and eliminate a key enemy player, turning the tide of a round"
+  ],
+  "weaknesses": [
+    "Abilities rely on positioning and sound triggers, which can be avoided by stealthy enemies",
+    "Her utility is heavily dependent on controlling specific areas, making her less flexible on open maps",
+    "Ultimate requires proper timing and coordination to capitalize on the captured enemy"
+  ],
+  "associated_maps": ["Split", "Fracture"],
+  "release_date": "2023-08-29"
+},
+{
+  "agent_name": "Iso",
+  "role": "Duelist",
+  "abilities": {
+    "ability_1": {
+      "name": "Fragmentation",
+      "description": "Throw an explosive device that shatters into multiple fragments upon detonation, damaging and disorienting enemies caught in the blast.",
+      "effects": "Damages and disorients enemies in a small area, making them vulnerable for a short time."
+    },
+    "ability_2": {
+      "name": "Blast Charge",
+      "description": "Deploy a charge that propels Iso in the direction of the blast, allowing for quick movement and repositioning. It can also deal damage to enemies if they are hit.",
+      "effects": "Iso propels himself using the blast charge, providing mobility and dealing damage to enemies in its path."
+    },
+    "ability_3": {
+      "name": "Reflect",
+      "description": "Activate to deploy a temporary energy shield in front of Iso that reflects incoming fire. The shield lasts for a short duration.",
+      "effects": "Creates a temporary shield that reflects bullets, providing Iso with a defensive tool during engagements."
+    },
+    "ultimate": {
+      "name": "Kill Zone",
+      "description": "Iso creates an isolated dueling arena, trapping both himself and one enemy inside. Only one can leave alive.",
+      "effects": "Iso traps himself and one enemy in a small arena, forcing a one-on-one duel where the victor is the only one who can escape."
+    }
+  },
+  "background_story": "Iso is a mysterious and deadly Duelist, known for his ability to isolate and eliminate targets in intense one-on-one duels. With his mix of offensive and defensive capabilities, Iso thrives in chaotic engagements, where he can single out enemies and take them down with precision. His ultimate, 'Kill Zone,' allows him to literally isolate a target for a duel to the death, making him one of the most dangerous agents when it comes to close combat.",
+  "strengths": [
+    "High mobility with Blast Charge, allowing for quick repositioning",
+    "Strong dueling potential with abilities that disorient and isolate enemies",
+    "Reflect provides defensive capabilities in the middle of engagements"
+  ],
+  "weaknesses": [
+    "Relies on one-on-one engagements, making him less effective in team-based situations",
+    "Kill Zone can backfire if Iso is not prepared for the duel",
+    "Abilities are focused on individual combat, offering little utility for team support"
+  ],
+  "associated_maps": ["Split", "Fracture"],
+  "release_date": "2023-10-31"
+},
+{
+  "agent_name": "Clove",
+  "role": "Controller",
+  "abilities": {
+    "ability_1": {
+      "name": "Meddle",
+      "description": "Equip a fragment of immortality essence. Throw it to create an explosion that decays enemies caught within the blast radius, reducing their HP temporarily.",
+      "effects": "Temporarily decays enemies’ health, weakening them for a short period."
+    },
+    "ability_2": {
+      "name": "Pick-Me-Up",
+      "description": "After killing or assisting in the elimination of an enemy, Clove gains haste and a temporary health boost.",
+      "effects": "Grants a temporary speed boost and health regeneration after securing a kill or assist."
+    },
+    "ability_3": {
+      "name": "Ruse",
+      "description": "Deploy smokes to specific locations on the battlefield. These smokes block vision and can be placed even after Clove’s death.",
+      "effects": "Blocks vision and allows Clove to place smokes post-death, providing ongoing battlefield control."
+    },
+    "ultimate": {
+      "name": "Not Dead Yet",
+      "description": "After death, Clove can resurrect. Once revived, Clove must secure a kill or assist within a limited time to stay alive. Grants invulnerability for 2 seconds upon resurrection.",
+      "effects": "Allows Clove to revive after death and provides a short period of invulnerability."
+    }
+  },
+  "background_story": "Clove, hailing from Scotland, is an immortal agent who views death as part of life’s natural cycle. With a rebellious personality, they use their unique abilities to return from death, control the battlefield, and cause confusion among enemies. Clove’s kit allows them to play aggressively while supporting teammates, defying the typical backline role of Controllers.",
+  "strengths": [
+    "Post-death utility with Ruse, enabling smokes even after dying",
+    "Strong area control through decays and smokes",
+    "Ultimate resurrection offers a second chance in critical situations"
+  ],
+  "weaknesses": [
+    "Relies on aggressive play to maximize abilities",
+    "Resurrection requires a kill or assist quickly to remain effective",
+    "Abilities can be avoided with proper positioning and awareness by enemies"
+  ],
+  "associated_maps": ["Bind", "Ascent"],
+  "release_date": "2024-03-26"
+},
+{
+  "agent_name": "Vyse",
+  "role": "Sentinel",
+  "abilities": {
+    "ability_1": {
+      "name": "Razorvine",
+      "description": "Equip a nest of liquid metal. When deployed, the nest becomes invisible and triggers to create a sprawling razorvine field that slows and damages enemies who pass through it.",
+      "effects": "Slows and damages enemies within the affected area."
+    },
+    "ability_2": {
+      "name": "Shear",
+      "description": "Deploy filaments of liquid metal that form an invisible wall trap. When an enemy crosses the trap, a solid indestructible wall emerges behind them, blocking escape routes.",
+      "effects": "Creates an indestructible wall behind enemies, cutting off escape routes and isolating them."
+    },
+    "ability_3": {
+      "name": "Arc Rose",
+      "description": "Place a hidden Arc Rose that can blind all enemies looking at it when triggered. The Arc Rose can be redeployed or placed through walls for strategic setups.",
+      "effects": "Blinds enemies looking in its direction when activated."
+    },
+    "ultimate": {
+      "name": "Steel Garden",
+      "description": "Deploy a torrent of liquid metal thorns that erupt and jam enemy primary weapons, forcing them to use secondary weapons for a short duration.",
+      "effects": "Jams enemies' primary weapons, forcing them to use their sidearms for a brief period."
+    }
+  },
+  "background_story": "Vyse, a cunning and calculating agent, manipulates liquid metal to trap and isolate enemies. With her ability to set up tactical advantages, she excels at punishing overly aggressive opponents, controlling space, and disarming enemies when they least expect it.",
+  "strengths": [
+    "Excellent area control with Razorvine and Shear, isolating enemies and controlling choke points.",
+    "Blinding and disarming enemies with Arc Rose and Steel Garden disrupts enemy strategies.",
+    "Can punish overly aggressive or uncoordinated teams."
+  ],
+  "weaknesses": [
+    "Relies on proper placement of abilities for maximum effectiveness.",
+    "Abilities can be avoided if enemies play cautiously and remain aware of her traps.",
+    "Requires good positioning and timing to fully capitalize on her toolkit."
+  ],
+  "associated_maps": ["Ascent", "Bind"],
+  "release_date": "2024-08-28"
+}  
+  ],
+  "agent_types": {
+    "Sentinel": {
+      "description": "Defensive experts who control areas and protect their team.",
+      "key_characteristics": ["Area control", "Support", "Defense"],
+      "examples": ["Sage", "Cypher", "Killjoy"]
+    },
+    "Duelist": {
+      "description": "Aggressive entry fraggers that lead the charge.",
+      "key_characteristics": ["High mobility", "Self-sufficient", "High damage output"],
+      "examples": ["Jett", "Reyna", "Phoenix"]
+    },
+    "Controller": {
+      "description": "Map manipulators who block vision and control the flow of the game.",
+      "key_characteristics": ["Vision denial", "Area control"],
+      "examples": ["Brimstone", "Omen", "Viper"]
+    },
+    "Initiator": {
+      "description": "Create opportunities for their team by gathering intel and forcing enemies out of strongholds.",
+      "key_characteristics": ["Recon", "Crowd control"],
+      "examples": ["Sova", "Breach", "Skye"]
+    }
+  }
+}
