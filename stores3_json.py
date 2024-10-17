@@ -24,16 +24,20 @@ s3_client = boto3.client(
     region_name=aws_region
 )
 
-def upload_to_s3(data, bucket_name, object_key):
+def save_data_locally(data, file_name='vct_players_data.json'):
     # Convert data to JSON string
-    json_data = json.dumps(data, indent=4)
-    
-    # Upload the JSON string to S3
-    s3_client.put_object(
-        Bucket=bucket_name,
-        Key=object_key,
-        Body=json_data
-    )
+    with open(file_name, 'w') as file:
+        json.dump(data, file, indent=4)
+    print(f"Data successfully saved locally as {file_name}")
+
+def upload_to_s3(file_name, bucket_name, object_key):
+    # Upload the local file to S3
+    with open(file_name, 'rb') as data:
+        s3_client.put_object(
+            Bucket=bucket_name,
+            Key=object_key,
+            Body=data
+        )
     print(f"Data successfully uploaded to S3: s3://{bucket_name}/{object_key}")
 
 def scrape_and_store():
@@ -159,7 +163,12 @@ def scrape_and_store():
             driver.get(player_info["player_profile"]["player_url"])
             try:
                 WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, 'player-header')))
-
+                try:
+                    realname_element = driver.find_element(By.XPATH, "//h2[@class='player-real-name ge-text-light']")
+                    player_realname = realname_element.text.strip()
+                    player_info["player_profile"]['real_name'] = player_realname
+                except Exception as e:
+                    print(f"Error extracting real name: {str(e)}")
                 # Extract region/country
                 try:
                     region_element = driver.find_element(By.XPATH, "//div[@class='ge-text-light']")
@@ -369,11 +378,8 @@ def scrape_and_store():
 
             players_data.append(player_info)
             row_index += 1
-            # print(f"player_data:{players_data}")
-            # print json in proper format
-            # print(json.dumps(players_data, indent=4))
-            # return
-    #         # Go back to the main page to continue extracting the next player's data
+
+            # Go back to the main page to continue extracting the next player's data
             driver.get(url)
         
         except Exception as e:
@@ -382,29 +388,13 @@ def scrape_and_store():
 
     driver.quit()
 
-    # Upload the complete data to S3
-    upload_to_s3(players_data, bucket_name='vlrscraperbucket', object_key='vct_players_data.json')
+    # Save the data locally first
+    local_file_name = 'vct_players_data.json'
+    save_data_locally(players_data, file_name=local_file_name)
 
+    # Then upload the saved file to S3
+    upload_to_s3(file_name=local_file_name, bucket_name='vlrscraperbucket', object_key=local_file_name)
 
-def read_data_from_s3():
-    # S3 Details (replace with your bucket name and object key)
-    bucket_name = 'vlrscraperbucket'
-    object_key = 'players_data.json'
-    
-    # Get the object from S3
-    response = s3_client.get_object(Bucket=bucket_name, Key=object_key)
-    
-    # Read the content of the object as a string
-    data = response['Body'].read().decode('utf-8')
-    
-    # Load the content as JSON
-    player_data = json.loads(data)
-    
-    # Print the content
-    print("Data from S3 (JSON format):")
-    for player in player_data:
-        print(player)
 
 if __name__ == "__main__":
     scrape_and_store()
-    # read_data_from_s3()

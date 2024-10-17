@@ -1,0 +1,31 @@
+import psycopg2
+import json
+
+# Connect to your RDS PostgreSQL
+conn = psycopg2.connect(
+    host="vctsampledb.czsw0wekk59o.us-east-1.rds.amazonaws.com",
+    port="5432",
+    database="vctsampledb",
+    user="postgres",
+    password="12345678"
+)
+
+# Open a cursor to perform database operations
+cursor = conn.cursor()
+
+# Read the JSON data
+with open('path/to/yourfile.json') as f:
+    data = json.load(f)
+
+# Insert JSON data into your table
+for entry in data:
+    cursor.execute(
+        "CREATE TABLE IF NOT EXISTS my_table (name VARCHAR(50), age INTEGER, data JSONB);"
+        # "INSERT INTO my_table (name, age, data) VALUES (%s, %s, %s)",
+        # (entry['name'], entry['age'], json.dumps(entry))
+    )
+
+# Commit changes and close the connection
+conn.commit()
+cursor.close()
+conn.close()
