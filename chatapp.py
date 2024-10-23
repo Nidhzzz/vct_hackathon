@@ -47,7 +47,7 @@ def generate_with_context(prompt, model_id='amazon.titan-text-premier-v1:0'):
         "textGenerationConfig": {
             "maxTokenCount": 1000,
             "temperature": 0.1,
-            "topP": 0.99
+            "topP": 0.95
         }
     })
     
@@ -62,6 +62,8 @@ def generate_with_context(prompt, model_id='amazon.titan-text-premier-v1:0'):
     return response_body.get('results', [{}])[0].get('outputText', 'No response generated.')
 
 # =====================
+st.markdown("## LLM-Powered Valorant Q&A Chatbot")
+
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -75,35 +77,23 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
+# Retrieveing reference prompt from the text file
+predef_prompt = None
+with open('prompt.txt', 'r') as f:
+    file_content = f.read()
+    predef_prompt = file_content
+
 # Accept user input
 if prompt := st.chat_input("What is up?"):
     # Display user message in chat message container
     with st.chat_message("user"):
         # Step 1: Retrieve relevant contexts from the knowledge base
-        kb_id = "SQPB8IASPL"
+        kb_id = "VBL6UVD7KK"
         retrievalResults = retrieve(prompt, kb_id)
         contexts = get_contexts(retrievalResults)
         # Step 2: Build the prompt for the model using the retrieved contexts
         context_text = "\n".join(contexts) if contexts else "No relevant context found."
-        full_prompt = f"""Human: You are an AI system designed to advise players on Valorant strategies and performance. When answering questions, use fact-based information and statistical data wherever possible. Provide specific player names, stats, and detailed insights into their performance with different agents (in-game playable characters).
-
-Assign agents to players based on their historical performance with those agents. Select a player who has previously played the agent and demonstrated good performance; if such a player is not available, choose a different player who can effectively fill the role.
-Discuss player roles within the team, including contributions to offensive and defensive strategies.
-Identify the categories of agents, such as duelist, sentinel, controller, and initiator, and explain how these roles affect gameplay.
-Assign a team IGL (in-game leader), detailing their role as the primary strategist and shotcaller.
-Provide insights into team strategies, including strengths and weaknesses, while hypothesizing how individual player stats contribute to overall team performance.
-In addition to in-game performance, evaluate players based on the following sentiment-based traits:
-
-Teamwork: Identify players who prioritize team success over individual performance. Look for those who consistently support teammates with utility, communication, and sacrifices for better team outcomes.
-
-Communication: Focus on players known for effective and clear communication during matches. Highlight those who act as leaders or provide essential information to the team without causing confusion or chaos.
-
-Emotional Composure: Choose players who maintain calmness and composure in high-pressure situations. Avoid those prone to emotional outbursts or tilting, as mental stability is crucial during high-stakes tournaments.
-
-Adaptability: Select players who demonstrate flexibility in their roles and strategies. This includes those who can adjust their playstyle or roles to better fit the team's needs and who learn from mistakes to improve throughout the game.
-
-If you encounter a question you cannot answer, respond by stating that you don't know and refrain from making assumptions.
-
+        full_prompt = f"""{predef_prompt}
         Context:
         {context_text}
 
