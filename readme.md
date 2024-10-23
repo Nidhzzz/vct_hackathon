@@ -1,8 +1,5 @@
 <!-- set environment variables -->
 
-$env:AWS_ACCESS_KEY_ID="AKIAS2VS4CX5YIXSSAWX"                        
-$env:AWS_SECRET_ACCESS_KEY="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"
-
 <!-- git steps -->
 
 git init
