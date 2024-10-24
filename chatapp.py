@@ -26,7 +26,7 @@ def retrieve(query, kb_Id, numberOfResults=5):
         knowledgeBaseId=kb_Id,
         retrievalConfiguration={
             'vectorSearchConfiguration': {
-                'numberOfResults': numberOfResults,
+                # 'numberOfResults': numberOfResults,
                 'overrideSearchType': "HYBRID"  # optional
             }
         }
@@ -112,4 +112,6 @@ if prompt := st.chat_input("If you don't like the answer give the same prompt ag
         response = generate_with_context(full_prompt)
         st.markdown(response)
     # Add assistant response to chat history
-    st.session_state.messages.append({"role": "assistant", "content": response})
+    st.session_state.messages.append({"role": "assistant", "content": retrievalResults})
+
+    # st.session_state.messages.append({"role": "assistant", "content": response})
