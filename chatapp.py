@@ -45,7 +45,7 @@ def generate_with_context(prompt, model_id='amazon.titan-text-premier-v1:0'):
     body = json.dumps({
         "inputText": prompt,
         "textGenerationConfig": {
-            "maxTokenCount": 1000,
+            "maxTokenCount": 2000,
             "temperature": 0.1,
             "topP": 0.95
         }
