@@ -84,7 +84,7 @@ with open('prompt.txt', 'r') as f:
     predef_prompt = file_content
 
 # Accept user input
-if prompt := st.chat_input("If you don't like teh answer give the same prompt again."):
+if prompt := st.chat_input("If you don't like the answer give the same prompt again."):
     # Display user message in chat message container
     with st.chat_message("user"):
         # Step 1: Retrieve relevant contexts from the knowledge base
