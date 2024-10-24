@@ -110,8 +110,7 @@ if prompt := st.chat_input("If you don't like the answer give the same prompt ag
     # Display assistant response in chat message container
     with st.chat_message("assistant"):
         response = generate_with_context(full_prompt)
-        st.markdown(response)
+        st.markdown(context_text)
+        # st.markdown(response)
     # Add assistant response to chat history
-    st.session_state.messages.append({"role": "assistant", "content": "Helloooooo" + context_text})
-
-    # st.session_state.messages.append({"role": "assistant", "content": response})
+    st.session_state.messages.append({"role": "assistant", "content": response})
