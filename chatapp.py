@@ -101,6 +101,8 @@ if prompt := st.chat_input("If you don't like the answer give the same prompt ag
         {predef_prompt}
         Context:
         {context_text}
+        Chat_history:
+        {st.session_state.messages}
         <question>
         {prompt}
         </question>
