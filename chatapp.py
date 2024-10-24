@@ -20,10 +20,12 @@ bedrock_agent_client = session.client("bedrock-agent-runtime", region_name=os.en
 pp = pprint.PrettyPrinter(indent=4)
 
 # Function to retrieve text chunks from the knowledge base
-def retrieve(query, kb_Id, numberOfResults=5):
+def retrieve(query, kbId, numberOfResults=5):
     response = bedrock_agent_client.retrieve(
-        retrievalQuery={'text': query},
-        knowledgeBaseId=kb_Id,
+        retrievalQuery={
+            'text': query
+        },
+        knowledgeBaseId=kbId,
         retrievalConfiguration={
             'vectorSearchConfiguration': {
                 'numberOfResults': numberOfResults,
@@ -31,7 +33,7 @@ def retrieve(query, kb_Id, numberOfResults=5):
             }
         }
     )
-    return response.get('results', [])
+    return response
 
 # Function to fetch contexts from retrieval results
 def get_contexts(retrievalResults):
@@ -89,14 +91,16 @@ if prompt := st.chat_input("If you don't like the answer give the same prompt ag
     with st.chat_message("user"):
         # Step 1: Retrieve relevant contexts from the knowledge base
         kb_id = "VBL6UVD7KK"
-        retrievalResults = retrieve(prompt, kb_id)
+        retrievedResults = retrieve(prompt, kb_id)
+        retrievalResults = retrievedResults['retrievalResults']
         contexts = get_contexts(retrievalResults)
         # Step 2: Build the prompt for the model using the retrieved contexts
         context_text = "\n".join(contexts) if contexts else "No relevant context found."
-        full_prompt = f"""{predef_prompt}
+        full_prompt = f"""
+        Behaviour:        
+        {predef_prompt}
         Context:
         {context_text}
-
         <question>
         {prompt}
         </question>
