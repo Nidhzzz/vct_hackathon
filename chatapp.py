@@ -90,7 +90,7 @@ if prompt := st.chat_input("If you don't like the answer give the same prompt ag
     # Display user message in chat message container
     with st.chat_message("user"):
         # Step 1: Retrieve relevant contexts from the knowledge base
-        kb_id = "VBL6UVD7KK"
+        kb_id = "UKDO2PVOQ3"
         retrievedResults = retrieve(prompt, kb_id)
         retrievalResults = retrievedResults['retrievalResults']
         contexts = get_contexts(retrievalResults)
